@@ -1,0 +1,15 @@
+{# src/AppBundle/Resources/views/Form/PrivateOffice/subscription.html.twig #}
+<form action="{{ path('payment_liq_pay_processing_buy_subscription', { '_locale': app.request.locale }) }}" method="POST" id="subscribe">
+    {% for subscription in subscriptions %}
+        <div class="field-holder">
+            <input type="radio" name="subscription" value="{{ subscription.id }}" id="{{ subscription.id }}" {{ ( loop.index == 1 ) ? 'checked' : null }}>
+            <label for="{{ subscription.id }}">
+                <span class="radio">{{ subscription.name }}</span>
+                <span class="price">{{ subscription.getPrice(app.user.preferredCurrency) ~ ' ' ~ app.user.preferredCurrency }}</span>
+            </label>
+        </div>
+    {% endfor %}
+    <button type="submit">
+        <span>Подписаться</span>
+    </button>
+</form>

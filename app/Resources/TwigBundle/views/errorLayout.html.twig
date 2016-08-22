@@ -1,0 +1,32 @@
+{# app/Resources/TwigBundle/views/errorLayout.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{# Fast "_locale" hack for twig exception #}
+{% set host = app.request.requestUri|split("/") %}
+{% if host[1] in ['ua','en','ru'] %}
+    {% set locale = host[1] %}
+{% else %}
+    {% set locale = 'ru' %}
+{% endif %}
+
+{% block title %}
+    {{ exception.statusCode }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/notFound.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+        <div class="outer" id="not-found-holder">
+            <div class="inner">
+                {% block exception %}{% endblock %}
+                <a href="{{ path('index', { '_locale': locale }) }}">
+                    <span class="fa fa-long-arrow-left"></span>{{ 'error.common.return'|trans({}, "messages", locale) }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

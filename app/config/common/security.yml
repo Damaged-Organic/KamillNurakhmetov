@@ -1,0 +1,91 @@
+# app/config/common/security.yml
+security:
+    role_hierarchy:
+        ROLE_READER:      [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+          - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # comment it when using acl
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+        reader_provider:
+            entity:
+                class:    AppBundle:Reader
+                property: email
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+        AppBundle\Entity\Reader:
+            algorithm: bcrypt
+            cost:      15
+
+    firewalls:
+        admin:
+            pattern: /admin(.*)
+            context: user
+            form_login:
+                provider:     fos_userbundle
+                login_path:   /admin/login
+                use_forward:  false
+                check_path:   /admin/login_check
+                failure_path: null
+            logout:
+                path: /admin/logout
+            anonymous: true
+
+        private_office:
+            anonymous:  ~
+            http_basic: ~
+            provider:   reader_provider
+
+            entry_point: app.security.authentication_handler
+
+            form_login:
+                check_path:          private_office_login_check
+                default_target_path: private_office
+
+                success_handler: app.security.authentication_handler
+                failure_handler: app.security.authentication_handler
+
+                username_parameter: _email
+                password_parameter: _password
+
+                csrf_parameter: _csrf_token
+                csrf_provider:  security.csrf.token_manager
+
+            logout:
+                path:   /private_office/logout
+                target: /
+
+        main:
+            pattern: ^/
+            form_login:
+                provider:      fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:    true
+            anonymous: true
+
+    access_control:
+        - { path: ^/private_office, role: [ROLE_READER] }
+        - { path: ^/order, role: [ROLE_READER] }
+        - { path: ^/cart, role: [ROLE_READER] }
+        - { path: ^/payment, role: [ROLE_READER] }
+
+        # URL of FOSUserBundle which need to be available to anonymous users
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Admin login page needs to be access without credential
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Secured part of the site
+        # This config requires being logged for the whole site and having the admin role for the admin part.
+        # Change these rules to adapt them to your needs
+        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

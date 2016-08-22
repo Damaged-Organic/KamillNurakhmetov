@@ -1,0 +1,123 @@
+{# src/AppBundle/Resources/views/State/privateOffice.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('private_office_default') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/private.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content" class="sticky-footer">
+            <div id="private-office">
+
+                {% if liqPayResponseMessage %}
+                    <div class="payment-msg-holder success">
+                        <p>{{ liqPayResponseMessage }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="outer">
+                    {% if books is not empty %}
+                        <section class="inner library-holder">
+                            <h2>{{ 'private_office.library.title'|trans }}</h2>
+                            <div class="books-holder">
+
+                                {% for book in books %}
+                                    <div class="book">
+                                        <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id }) }}">
+                                            <figure>
+                                                <img src="{{ vich_uploader_asset(book, 'coverFile') }}" alt="{{ book.title }}">
+                                            </figure>
+                                            <div class="overlay-holder">
+                                                <div class="inner">
+                                                    <span>{{ 'books.book.read'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                            <div class="btn-small touch-hover">
+                                <a href="{{ path('books', { '_locale': app.request.locale }) }}">{{ 'private_office.library.action'|trans }}</a>
+                            </div>
+                        </section>
+                    {% endif %}
+                    <section class="inner personal-data-holder">
+                        <h2>{{ 'private_office.personal.title'|trans }}</h2>
+
+                        {{ render(controller('AppBundle:Form/PrivateOffice:formReaderPersonal')) }}
+
+                    </section>
+                    <section class="inner password-change-holder">
+                        <h2>{{ 'private_office.password.title'|trans }}</h2>
+
+                        {{ render(controller('AppBundle:Form/PrivateOffice:formReaderPassword')) }}
+
+                    </section>
+                </div>
+                <aside class="outer action-panel-holder">
+                    {% if app.user.isSubscribed %}
+                        <section class="inner subsribe-holder subscribed">
+                            <h2>{{ 'private_office.subscribed.title'|trans }}</h2>
+                            <span class="term">
+                                {{ app.user.subscriptionEnd|date('d F Y h:i')|localizeddate('long', 'none', app.request.locale) ~ ' ' ~ 'stories.subscription.in'|trans ~ ' ' ~ app.user.subscriptionEnd|date('H:i') }}
+                            </span>
+                        </section>
+                    {% else %}
+                        <section class="inner subsribe-holder">
+                            <h2>{{ 'private_office.subscription.title'|trans }}</h2>
+                            <p>{{ 'private_office.subscription.subtitle'|trans }}</p>
+
+                            {{ render(controller('AppBundle:Form/PrivateOffice:formSubscription')) }}
+
+                        </section>
+                    {% endif %}
+                    <section class="inner currency-holder">
+                        <h2>{{ 'private_office.currency.title'|trans }}</h2>
+                        <p>{{ 'private_office.currency.subtitle'|trans }}</p>
+
+                        {{ render(controller('AppBundle:Form/PrivateOffice:formReaderCurrency')) }}
+
+                    </section>
+                    <section class="inner payment-contacts">
+                        <p>{{ 'private_office.administration_contacts'|trans({ '%email%': personal_email.feedback })  }}</p>
+                    </section>
+                </aside>
+            </div>
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer" class="sticky">
+        <div class="cheers-logo">
+            <a href="{{ developers_agency.link }}"><img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="CHEERS! Unlimited Web Agency"></a>
+        </div>
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/home.bundle.min.js') }}"></script>
+{% endblock %}

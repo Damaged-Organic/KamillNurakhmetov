@@ -1,0 +1,120 @@
+{# src/AppBundle/Resources/views/State/books.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('books_default') }}">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/books.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content" class="sticky-footer">
+            <div class="text-holder">
+                <h1>{{ 'books.title'|trans }}</h1>
+                {% if is_granted('ROLE_READER') %}
+                    <p>{{ 'books.welcome_text.authenticated'|trans }}</p>
+                {% else %}
+                    <p>{{ 'books.welcome_text.anonymous'|trans }}</p>
+                {% endif %}
+            </div>
+			<section class="grid" id="book-list">
+
+                {% for book in books %}
+                    {% if loop.first %}
+                        <div class="row">
+                    {% endif %}
+
+                    <article class="col book-holder">
+						<figure><img src="{{ vich_uploader_asset(book, 'coverFile') }}" alt="{{ book.title }}"></figure>
+						<div class="info">
+							<span class="book-title">{{ book.title }}</span>
+							<time datetime="{{ book.year }}">{{ 'books.book.edition'|trans }} {{ book.year }} года</time>
+							<ul>
+								<li>
+								    <span>
+								        <span class="fa fa-reply"></span>{{ 'books.quantity.reviews'|transchoice(book.reviews|length) }}
+								    </span>
+                                </li>
+								<li>
+								    <span>
+								        <span class="fa fa-book"></span>{{ 'books.quantity.views'|transchoice(book.views) }}
+                                    </span>
+                                </li>
+								<li>
+								    <span>
+								        <span class="fa fa-file"></span>{{ 'books.quantity.pages'|transchoice(book.pages) }}
+                                    </span>
+                                </li>
+							</ul>
+
+                            <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id }) }}">
+
+                                {% if not is_granted('BOOK_ACQUIRED', book) %}
+    							    {{ 'books.book.read_part'|trans }}
+                                {% else %}
+                                    {{ 'books.book.read_full'|trans }}
+                                {% endif %}
+
+                            </a>
+
+                            <div class="btn-small">
+                                <a href="{{ path('books', { '_locale': app.request.locale, 'id': book.id, 'slug': book.slug }) }}">{{ 'books.book.details'|trans }}</a>
+                            </div>
+
+                        </div>
+					</article>
+
+                    {% if loop.last %}
+                        </div>
+                    {% elseif loop.index is divisible by(2) %}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                {% else %}
+                    <p>{{ 'books.empty'|trans }}</p>
+                {% endfor %}
+
+			</section>
+
+            {% if metadata.text %}
+                <div class="seo-text">
+                    <div class="inner">
+                        {{ metadata.text|raw }}
+                    </div>
+                    <span id="expand-seo-text">{{ 'common.read_more'|trans }}</span>
+                </div>
+            {% endif %}
+		</main>
+
+		{{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+	</div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer" class="sticky">
+        <div class="cheers-logo">
+            <a href="{{ developers_agency.link }}"><img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="CHEERS! Unlimited Web Agency"></a>
+        </div>
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/books.bundle.min.js') }}"></script>
+{% endblock %}

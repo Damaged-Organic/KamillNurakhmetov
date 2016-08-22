@@ -1,0 +1,66 @@
+{# src/AppBundle/Resources/views/State/index.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'default.title'|trans }} | {{ metadata.title }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('index_default') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/home.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content">
+            <section class="outer intro-holder">
+                <div class="inner">
+                    <span class="small-title">{{ 'index.subheadline'|trans }}</span>
+                    <h1>{{ 'index.headline'|trans }}</h1>
+                    <p>{{ 'index.slogan'|trans }}</p>
+
+                    {% if is_granted('ROLE_READER') %}
+                        <div class="btn-large touch-hover">
+                            <a href="{{ path('private_office', { '_locale': app.request.locale }) }}">{{ 'index.authorization.login'|trans }}</a>
+                        </div>
+                    {% else %}
+                        <div class="btn-large touch-hover auth-action" data-auth-action="authorization"><a href="#">{{ 'index.authorization.login'|trans }}</a></div>
+                        <a href="#" class="under-btn touch-hover auth-action" data-auth-action="registration">{{ 'index.authorization.register'|trans }}</a>
+                    {% endif %}
+
+                </div>
+                <div class="mask left">
+                    <img src="{{ asset('bundles/app/images/mask-left.png') }}" alt="Mask left" class="tilt-effect">
+                </div>
+                <div class="mask right">
+                    <img src="{{ asset('bundles/app/images/mask-right.png') }}" alt="Mask right" class="tilt-effect">
+                </div>
+            </section>
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer">
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/private.bundle.min.js') }}"></script>
+{% endblock %}

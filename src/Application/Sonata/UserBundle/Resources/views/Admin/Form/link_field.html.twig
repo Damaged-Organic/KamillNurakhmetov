@@ -1,0 +1,7 @@
+{% block link_field_widget %}
+    {% spaceless %}
+        <a href="{{ path('admin_app_chapter_edit', { 'id': value }) }}">
+            Редактировать
+        </a>
+    {% endspaceless %}
+{% endblock %}

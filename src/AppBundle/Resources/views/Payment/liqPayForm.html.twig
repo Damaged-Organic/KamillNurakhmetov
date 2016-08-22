@@ -1,0 +1,12 @@
+{# src/AppBundle/Resources/views/Payment/liqPayForm.html.twig #}
+<form method="POST" action="{{ liqPayAction }}" accept-charset="utf-8" id="liqPayForm">
+    <input type="hidden" name="data" value="{{ liqPayOrder.orderData }}">
+    <input type="hidden" name="signature" value="{{ liqPayOrder.orderSignature }}">
+</form>
+
+<script>
+    function submitForm() {
+        document.getElementById('liqPayForm').submit();
+    }
+    window.onload = submitForm;
+</script>

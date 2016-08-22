@@ -1,0 +1,107 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+@import "reset.less";
+
+@font-face{
+    font-family: "Exmouth";
+    src: url('../fonts/exmouth_-webfont.eot');
+    src: url('../fonts/exmouth_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/exmouth_-webfont.woff2') format('woff2'),
+         url('../fonts/exmouth_-webfont.woff') format('woff'),
+         url('../fonts/exmouth_-webfont.ttf') format('truetype'),
+         url('../fonts/exmouth_-webfont.svg#exmouthregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  color scheme start                        */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@darkGrey: #2b2b2b;
+@darkBrown: #927661;
+@lightBrown: #ab8b73;
+@baseCream: #f9f4f0;
+@rustGreen: #678e91;
+
+@successColor: #4F8A10;
+@errorColor: #D8000C;
+
+@easing: ease;
+
+@laptop: ~"(max-width: 1024px)";
+@tablet: ~"(max-width: 800px)";
+@mobileL: ~"(max-width: 640px)";
+@mobileM: ~"(max-width: 480px)";
+@mobileS: ~"(max-width: 320px)";
+@landscape: ~"(orientation: landscape)";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  color scheme end                          */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  Fonts start                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@exmouth: "Exmouth", sans-serif;
+@openSans: "Open Sans", sans-serif;
+
+h1, h2, h3, h4, p, span, a, small, time{
+    font-family: @openSans;
+    font-weight: normal;
+    color: @darkGrey;
+    text-align: center;
+}
+h1{ font-size: 5.5em; }
+h2{
+    font-size: 1.125em;
+    font-weight: 300;
+}
+h3{ font-size: 1.125em; }
+p, a, time{ font-size: 0.875em; }
+small{ font-size: 0.875em; }
+a{ text-decoration: none; }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  Fonts end                                 */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  mixins start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.borderBox{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+@easingFunction: ease;
+.transition{
+    -webkit-transition: all .5s @easingFunction;
+    -moz-transition: all .5s @easingFunction;
+    -ms-transition: all .5s @easingFunction;
+    -o-transition: all .5s @easingFunction;
+    transition: all .5s @easingFunction;
+}
+.centered(@x: 50%, @y: 50%, @tx: -50%, @ty: -50%){
+    position: absolute;
+    top: @y;
+    left: @x;
+    -webkit-transform: translateX(@tx) translateY(@ty);
+    -moz-transform: translateX(@tx) translateY(@ty);
+    -ms-transform: translateX(@tx) translateY(@ty);
+    -o-transform: translateX(@tx) translateY(@ty);
+    transform: translateX(@tx) translateY(@ty);
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  mixins end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  helpers start                             */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+img, figure > img{
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  helpers end                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

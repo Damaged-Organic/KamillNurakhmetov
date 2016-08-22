@@ -1,0 +1,24 @@
+{# src/AppBundle/Resources/views/Common/paginationBar.html.twig #}
+{% if paginationBar.navigation_required %}
+    <ul>
+        {% set page_prev = ( paginationBar.side_buttons.page_prev ) ? paginationBar.side_buttons.page_prev : 1 %}
+        <li class="touch-hover">
+            <a href="{{ path('stories', { '_locale': app.request.locale, 'page': page_prev, 'sortingParameter': sortingParameter }) }}">
+                <span class="fa fa-arrow-left"></span>
+            </a>
+        </li>
+        {% for item in paginationBar.navigation_items %}
+            {% if item != 'separator' %}
+                <li class="touch-hover {{ (item == paginationBar.current_page) ? 'active' : '' }}">
+                    <a href="{{ path('stories', { '_locale': app.request.locale, 'page': item, 'sorting_parameter': sortingParameter }) }}">{{ item }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% set page_next = ( paginationBar.side_buttons.page_next ) ? paginationBar.side_buttons.page_next : paginationBar.pages_number %}
+        <li class="touch-hover">
+            <a href="{{ path('stories', { '_locale': app.request.locale, 'page': page_next, 'sortingParameter': sortingParameter }) }}">
+                <span class="fa fa-arrow-right"></span>
+            </a>
+        </li>
+    </ul>
+{% endif %}

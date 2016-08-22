@@ -1,0 +1,32 @@
+{
+  "name": "writer",
+  "version": "1.0.0",
+  "description": "personal website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Smile0ff",
+  "license": "MIT",
+  "devDependencies": {
+    "glob": "^6.0.2",
+    "gulp": "^3.9.0",
+    "gulp-imagemin": "^2.3.0",
+    "imagemin-pngquant": "^4.1.2",
+    "jspm": "^0.16.19",
+    "less": "^2.5.1"
+  },
+  "jspm": {
+    "configFile": "jspm.config.js",
+    "dependencies": {
+      "jquery": "github:components/jquery@^2.1.4",
+      "jquery-mask-plugin": "npm:jquery-mask-plugin@^1.13.9",
+      "jquery-validation": "github:jzaefferer/jquery-validation@^1.14.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
+}

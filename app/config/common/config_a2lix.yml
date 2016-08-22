@@ -1,0 +1,6 @@
+# app/config/common/config_a2lix.yml
+a2lix_translation_form:
+    locales:          [en]
+    default_required: true
+    manager_registry: doctrine
+    templating:       "A2lixTranslationFormBundle::default.html.twig"

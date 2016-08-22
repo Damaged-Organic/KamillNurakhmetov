@@ -1,0 +1,11 @@
+{# app/Resources/TwigBundle/views/Exception/error.html.twig #}
+{% extends 'TwigBundle::errorLayout.html.twig' %}
+
+{% block exception %}
+    <span class="rotated">{{ 'error.500.rotated'|trans({}, "messages", locale) }}</span>
+    <h2>{{ 'error.common.headline'|trans({}, "messages", locale) }}</h2>
+    <p>{{ 'error.500.subheadline'|trans({}, "messages", locale) }}</p>
+    <div class="circle">
+        <span>500</span>
+    </div>
+{% endblock %}

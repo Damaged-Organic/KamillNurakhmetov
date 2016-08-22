@@ -1,0 +1,22 @@
+{# src/AppBundle/Resources/views/Form/review.html.twig #}
+<form action="{% block dynamic_path %}{% endblock %}" method="POST" id="review-form">
+    <div class="field-holder">
+        {{ form_widget(form.review.text, {
+            'id': "review-message",
+            'attr': {
+                'data-rule-required': "true", 'data-msg-required': 'review.text.not_blank'|trans({}, "validators"),
+                'data-rule-minlength': "5", 'data-msg-minlength': 'review.text.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "2500", 'data-msg-maxlength': 'review.text.length.max'|trans({}, "validators")
+            }
+        }) }}
+    </div>
+
+    {% block dynamic_fields %}{% endblock %}
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit">
+        <span>{{ 'review.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>
+<div id="response-holder"></div>

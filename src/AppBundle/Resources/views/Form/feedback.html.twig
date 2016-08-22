@@ -1,0 +1,84 @@
+{# src/AppBundle/Resources/views/Form/feedback.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        {{ message.error }}
+    {% endif %}
+    {% if message.notification is defined %}
+        {{ message.notification }}
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('feedback_send', { '_locale': app.request.locale }) }}" method="POST" id="feedback-form">
+    <div class="field-holder">
+        {{ form_widget(form.name, {
+            'id': "feedback-name",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-minlength': "2", 'data-msg-minlength': 'feedback.name.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "200", 'data-msg-maxlength': 'feedback.name.length.max'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_name %}
+            {{ block('base_form_label') }}
+            <label for="feedback-name">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'feedback.name.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+    </div>
+
+    <div class="field-holder">
+        {{ form_widget(form.email, {
+            'id': "feedback-email",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'feedback.email.not_blank'|trans({}, "validators"),
+                'data-rule-email': "true", 'data-msg-email': 'feedback.email.valid'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_email %}
+            {{ block('base_form_label') }}
+            <label for="feedback-email">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'feedback.email.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+    </div>
+
+    <div class="field-holder">
+        {{ form_widget(form.subject, {
+            'id': "feedback-theme",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-minlength': "2", 'data-msg-minlength': 'feedback.subject.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "200", 'data-msg-maxlength': 'feedback.subject.length.max'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_subject %}
+            {{ block('base_form_label') }}
+            <label for="feedback-theme">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'feedback.subject.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+    </div>
+
+    <div class="field-holder area">
+        {{ form_widget(form.message, {
+            'id': "feedback-msg",
+            'attr': {
+                'data-rule-required': "true", 'data-msg-required': 'feedback.message.not_blank'|trans({}, "validators"),
+                'data-rule-minlength': "5", 'data-msg-minlength': 'feedback.message.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "1500", 'data-msg-maxlength': 'feedback.message.length.max'|trans({}, "validators")
+            }
+        }) }}
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit">
+        <span>{{ 'feedback.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

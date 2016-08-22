@@ -1,0 +1,39 @@
+{# src/AppBundle/Resources/views/Common/header.html.twig #}
+<header id="header">
+    <div id="authorization-widget-holder">
+        {% if is_granted('ROLE_READER') %}
+            <ul class="authorization out">
+                <li>
+
+                    {{ render(controller('AppBundle:Cart/BookCart:bookCartWidget')) }}
+
+                </li>
+                <li>
+                    <a href="{{ path('private_office', { '_locale': app.request.locale }) }}" class="user-email touch-hover">
+                        {{ ( app.user.pseudonym ) ?: app.user.email }}
+                    </a>
+                </li>
+                <li><a href="{{ path('private_office_logout') }}" class="touch-hover fa fa-sign-out"></a></li>
+            </ul>
+        {% else %}
+            <ul class="authorization out">
+                <li>
+                    <a href="#" class="touch-hover auth-action" data-auth-action="authorization">{{ 'common.header.login'|trans|lower }}</a>
+                </li>
+                <li>
+                    <a href="#" class="touch-hover auth-action" data-auth-action="registration">{{ 'common.header.register'|trans|lower }}</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+    <div class="logo">
+        <a href="{{ path('index', { '_locale': app.request.locale }) }}">
+            <img src="{{ asset('bundles/app/images/logo.png') }}" alt="{{ 'default.title'|trans }}">
+        </a>
+    </div>
+    <nav id="menu">
+
+        {{ knp_menu_render('main', { 'currentClass': 'active' }) }}
+
+    </nav>
+</header>

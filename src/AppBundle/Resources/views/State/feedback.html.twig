@@ -1,0 +1,49 @@
+{# src/AppBundle/Resources/views/State/feedback.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('feedback_default') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/feedback.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+        <main id="content">
+            <section class="outer" id="feedback-holder">
+                <h1>{{ 'feedback.title'|trans }}</h1>
+                <p>{{ 'feedback.headline'|trans }}</p>
+                <div class="inner">
+
+                    <p>{{ 'feedback.additional.corporate'|trans }} <a href="mailto:AAApablishing@mail.ua">AAApablishing@mail.ua</a></p>
+					<p>{{ 'feedback.additional.wholesale'|trans }} <a href="mailto:AAApablishing@mail.ua">AAApablishing@mail.ua</a></p>
+
+                    {{ render(controller('AppBundle:Form/Feedback:form')) }}
+
+                </div>
+                <div class="back-link">
+                    <a href="{{ path('index', { '_locale': app.request.locale }) }}">
+                        <span class="fa fa-long-arrow-left"></span>
+                        {{ 'feedback.backlink'|trans }}
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/feedback.bundle.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{# src/AppBundle/Resources/views/Form/PrivateOffice/readerPersonal.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        <p class="error-message">{{ message.error }}</p>
+    {% endif %}
+    {% if message.notification is defined %}
+        <p class="notification-message">{{ message.notification }}</p>
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('reader_personal_send', { '_locale': app.request.locale }) }}" method="POST" id="personal-data">
+    <div class="row">
+        <div class="entitled">
+            <p>{{ 'reader.email.label'|trans({}, "forms") }}</p>
+        </div>
+        <div class="field-holder">
+
+            {{ form_widget(form.email, {
+                'id': "personal-email",
+                'attr': {
+                    'class': "toggle-input",
+                    'data-rule-required': "true", 'data-msg-required': 'reader.email.not_blank'|trans({}, "validators"),
+                    'data-rule-email': "true", 'data-msg-email': 'reader.email.valid'|trans({}, "validators"),
+                    'value': app.user.email
+                }
+            }) }}
+
+            {% block form_label_reader_email %}
+                {{ block('base_form_label') }}
+                <label for="personal-email">
+                    <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                    <span class="title">{{ app.user.email }}</span>
+                </label>
+            {% endblock %}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="entitled">
+            <p>{{ 'reader.pseudonym.label'|trans({}, "forms") }}</p>
+        </div>
+        <div class="field-holder">
+
+            {{ form_widget(form.pseudonym, {
+                'id': "personal-pseudonym",
+                'attr': {
+                    'class': "toggle-input",
+                    'data-rule-minlength': "2", 'data-msg-minlength': 'reader.pseudonym.length.min'|trans({}, "validators"),
+                    'data-rule-maxlength': "255", 'data-msg-maxlength': 'reader.pseudonym.length.max'|trans({}, "validators"),
+                    'value': app.user.pseudonym
+                }
+            }) }}
+
+            {% block form_label_reader_pseudonym %}
+                {{ block('base_form_label') }}
+                <label for="personal-pseudonym">
+                    <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                    <span class="title">{{ app.user.pseudonym }}</span>
+                </label>
+            {% endblock %}
+
+        </div>
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit" class="touch-hover">
+        <span>{{ 'private_office.email.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

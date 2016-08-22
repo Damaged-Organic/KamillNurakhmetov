@@ -1,0 +1,118 @@
+{# src/AppBundle/Resources/views/Reader/reader.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'default.title'|trans }} | {{ content.title }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="robots" content="noindex, nofollow, noarchive">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/reader.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page"
+        {% if book is defined %}
+            data-path="{{ path('reader_book_chapter', { '_locale': app.request.locale, 'bookId': book.id }) }}"
+        {% endif %}>
+        <header id="header">
+            {% if book is defined %}
+                {% if is_granted('BOOK_ACQUIRED', book) %}
+                    <div class="icon-button tool contents">
+                        <span class="fa fa-list-ul"></span>
+                    </div>
+                {% endif %}
+            {% endif %}
+            <div class="icon-button tool mode">
+                <span class="fa fa-adjust"></span>
+            </div>
+            <div class="icon-button close">
+                {% if book is defined %}
+                    <a href="{{ path('books', { '_locale': app.request.locale }) }}" class="fa fa-times"></a>
+                {% else %}
+                    <a href="{{ path('stories', { '_locale': app.request.locale, 'page': parameters.page, 'sorting_parameter': parameters.sortingParameter, 'filter_parameter': parameters.filterParameter }) }}" class="fa fa-times"></a>
+                {% endif %}
+            </div>
+        </header>
+        <main id="content" class="sticky-footer">
+            <section class="outer" id="reader-holder">
+                <h2>{{ content.title }}</h2>
+
+                {{ content.text|raw }}
+
+                <span class="separator"></span>
+            </section>
+
+            {% if book is defined %}
+                {% if is_granted('BOOK_ACQUIRED', book) %}
+                    <section id="contents-holder">
+                        <div class="outer">
+                            <div class="inner">
+                                <h2>{{ book.title }}</h2>
+                                <ul class="contents-list">
+                                    {% for chapterItem in book.chapters %}
+                                        <li class="contents-item {{ chapterItem.id == content.id }}"
+                                            data-book-id="{{ book.id }}"
+                                            data-contents-id="{{ chapterItem.id }}">
+                                            {{ chapterItem.title }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="loader-holder">
+                        <span></span>
+                        <span></span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </main>
+
+        {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+        <footer id="footer" class="sticky">
+
+            {% if sequence is defined %}
+                {% if is_granted('BOOK_ACQUIRED', book) %}
+                    {% if sequence.previous %}
+                        <div class="arrow left">
+                            <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id, 'chapterId': sequence.previous.id }) }}" class="fa fa-arrow-left"></a>
+                        </div>
+                    {% else %}
+                        <div class="arrow left">
+                            <a href="#" class="fa fa-arrow-left"></a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            <div class="read-percentage">
+                <p>{{ 'reader.progress'|trans }} <span>0%</span></p>
+            </div>
+
+            {% if sequence is defined %}
+                {% if is_granted('BOOK_ACQUIRED', book) %}
+                    {% if sequence.next %}
+                        <div class="arrow right">
+                            <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id, 'chapterId': sequence.next.id }) }}" class="fa fa-arrow-right"></a>
+                        </div>
+                    {% else %}
+                        <div class="arrow right">
+                            <a href="#" class="fa fa-arrow-right"></a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        </footer>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/reader.bundle.min.js') }}"></script>
+{% endblock %}

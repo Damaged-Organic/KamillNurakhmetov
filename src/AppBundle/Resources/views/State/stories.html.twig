@@ -1,0 +1,247 @@
+{# src/AppBundle/Resources/views/State/stories.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}">
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('stories_default') }}">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/stories.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content" class="sticky-footer">
+
+            <div class="text-holder">
+                <h1>{{ 'stories.title'|trans }}</h1>
+                {% if not app.user or not app.user.isSubscribed %}
+                    {% if is_granted('ROLE_READER') %}
+                        <p>{{ 'stories.welcome_text.authenticated'|trans }}</p>
+                    {% else %}
+                        <p>{{ 'stories.welcome_text.anonymous'|trans }}</p>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+            <div class="sort-panel-holder">
+
+                <div class="sort-panel">
+                    <ul>
+                        {% if not app.user or (app.user and not app.user.isSubscribed) %}
+                            <li {{ ( sortingParameter == constant('AppBundle\\Entity\\Story::SORTING_AVAILABLE') ) ? 'class="active"' }}>
+                                <a href="{{ path('stories', { '_locale': app.request.locale, 'sorting_parameter': constant('AppBundle\\Entity\\Story::SORTING_AVAILABLE') }) }}" class="touch-hover
+                                    {{ ( sortingParameter == 'available' ) ? 'active' : null }}">
+                                    <span class="fa fa-unlock-alt"></span>
+                                    {{ 'stories.sort.available'|trans }}
+                                </a>
+                            </li>
+                        {% endif %}
+                        <li {{ ( sortingParameter == constant('AppBundle\\Entity\\Story::SORTING_VIEWED') ) ? 'class="active"' }}>
+                            <a href="{{ path('stories', { '_locale': app.request.locale, 'sorting_parameter': constant('AppBundle\\Entity\\Story::SORTING_VIEWED') }) }}" class="touch-hover
+                                {{ ( sortingParameter == 'most_viewed' ) ? 'active' : null }}">
+                                <span class="fa fa-sort-amount-asc"></span>
+                                {{ 'stories.sort.views'|trans }}
+                            </a>
+                        </li>
+                        <li {{ ( sortingParameter == constant('AppBundle\\Entity\\Story::SORTING_REVIEWED') ) ? 'class="active"' }}>
+                            <a href="{{ path('stories', { '_locale': app.request.locale, 'sorting_parameter': constant('AppBundle\\Entity\\Story::SORTING_REVIEWED') }) }}" class="touch-hover
+                                {{ ( sortingParameter == 'most_reviewed' ) ? 'active' : null }}">
+                                <span class="fa fa-sort-amount-asc"></span>
+                                {{ 'stories.sort.reviews'|trans }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {% if is_granted('ROLE_READER') %}
+
+                    {% if app.user.isSubscribed %}
+                        <div class="subscribed-holder">
+                            <a href="{{ path('private_office', { '_locale': app.request.locale }) }}">
+                                {{ 'stories.subscription.ends'|trans ~
+                                    ' ' ~ app.user.subscriptionEnd|date('d F Y h:i')|localizeddate('short', 'none', app.request.locale) ~
+                                    ', ' ~ 'stories.subscription.in'|trans ~ ' ' ~
+                                    app.user.subscriptionEnd|date('H:i') }}
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="btn-small subscribe touch-hover">
+                            <a href="{{ path('private_office', { '_locale': app.request.locale }) }}">{{ 'stories.subscription.buy'|trans }}</a>
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+            <div class="stories-list-holder">
+                <aside class="filters-holder">
+                    <ul>
+                        <li {{ ( not filterParameter ) ? 'class="active"' }}>
+                            <a href="{{ path('stories', { '_locale': app.request.locale }) }}">
+                                {{ 'stories.filter.all'|trans }}
+                            </a>
+                        </li>
+
+                        {% for storiesCategory in storiesCategories %}
+                            <li {{ ( filterParameter == storiesCategory.alias ) ? 'class="active"' }}>
+                                <a href="{{ path('stories', { '_locale': app.request.locale, 'filter_parameter': storiesCategory.alias }) }}">
+                                    {{ storiesCategory.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </aside>
+                <section class="grid" id="stories-list">
+                    {% for story in stories %}
+                        <article class="col stories-holder {% if not is_granted('STORY_READER_SUBSCRIBED', story) %} {{ 'disabled' }} {% endif %}">
+                            <div class="inner">
+                                <div class="stats-panel">
+                                    <span class="item">
+                                        <span class="fa fa-reply"></span>
+                                        {{ 'stories.quantity.reviews'|transchoice(storiesReviews[story.id]|length) }}
+                                    </span>
+                                    <span class="item">
+                                        <span class="fa fa-book"></span>
+                                        {{ 'stories.quantity.views'|transchoice(story.views) }}
+                                    </span>
+                                    <time datetime="{{ story.publicationDate|date('Y-m-d') }}">
+                                        {{ story.publicationDate|date('d F Y')|localizeddate('long', 'none', app.request.locale) }}
+                                    </time>
+                                </div>
+
+                                <div class="centered">
+                                    <span class="story-title">{{ story.title }}</span>
+                                    <span class="ornament"></span>
+
+                                        {% if is_granted('STORY_READER_SUBSCRIBED', story) %}
+                                            <div class="btn-small touch-hover">
+                                                <a href="{{ path('reader_story', { '_locale': app.request.locale, 'storyId': story.id }) }}">
+                                                    {{ 'stories.read.button'|trans }}
+                                                </a>
+                                            </div>
+                                        {% elseif is_granted('ROLE_READER') %}
+                                            <p>{{ 'stories.subscribe.text'|trans }}</p>
+                                            <div class="btn-small touch-hover">
+                                                <a href="{{ path('private_office', { '_locale': app.request.locale }) }}">{{ 'stories.subscribe.button'|trans }}</a>
+                                            </div>
+                                        {% else %}
+                                            <p>{{ 'stories.login.text'|trans }}</p>
+                                            <div class="btn-small touch-hover auth-action" data-auth-action="authorization">
+                                                <a href="#">{{ 'stories.login.button'|trans }}</a>
+                                            </div>
+                                        {% endif %}
+
+                                    <a href="#" data-storie-id="{{ story.id }}" data-form-visible="{{ ( is_granted('STORY_READER_SUBSCRIBED', story) ) ? 'true' : 'false' }}" class="review-button">
+
+                                        {% if is_granted('STORY_READER_SUBSCRIBED', story) %}
+
+                                            {% if is_granted('STORY_READER_REALLY_SUBSCRIBED', story) %}
+                                                {{ 'stories.review.write'|trans }}
+                                            {% else %}
+                                                {{ 'stories.review.watch'|trans }}
+                                            {% endif %}
+
+                                        {% else %}
+                                            {{ 'stories.review.watch'|trans }}
+                                        {% endif %}
+
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    {% else %}
+                        <p>{{ 'stories.empty'|trans }}</p>
+                    {% endfor %}
+                </section>
+            </div>
+            <div class="pagination-holder">
+
+                {% render controller('AppBundle:Common/Common:paginationBar', { 'sortingParameter': sortingParameter }) %}
+
+            </div>
+            <section class="outer on-stories" id="review-holder">
+                <div class="inner inner-holder">
+                    <span class="fa fa-times close-button"></span>
+                    <div class="inner">
+                        {% for story in stories %}
+                            <div class="review storie-id-{{ story.id }}">
+                                <div class="title-info">
+                                    <h2>{{ story.title }}</h2>
+                                </div>
+
+                                {% if storiesReviews[story.id]|length %}
+                                    <section class="comments-holder">
+
+                                        {% for review in storiesReviews[story.id] %}
+                                            <article class="comment">
+                                                <div class="panel">
+                                                    <span class="fa fa-comment"></span>
+                                                    <h2>{{ review.authorCredentials }}</h2>
+                                                    <time datetime="{{ review.publishedAt|date('Y-m-d') }}">
+                                                        {{ review.publishedAt|date('d F Y')|localizeddate('long', 'none', app.request.locale)  }}
+                                                    </time>
+                                                </div>
+                                                <p>{{ review.text }}</p>
+                                            </article>
+                                        {% endfor %}
+
+                                    </section>
+                                {% else %}
+                                    <p>{{ 'stories.review.empty'|trans }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if is_granted('ROLE_READER') %}
+                        <div class="review-form-holder">
+                            <h2>{{ 'stories.review.write'|trans }}</h2>
+
+                            {{ render(controller('AppBundle:Form/Review:formReviewStory')) }}
+
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            {% if metadata.text %}
+                <div class="seo-text">
+                    <div class="inner">
+                        {{ metadata.text|raw }}
+                    </div>
+                    <span id="expand-seo-text">{{ 'common.read_more'|trans }}</span>
+                </div>
+            {% endif %}
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer" class="sticky">
+        <div class="cheers-logo">
+            <a href="{{ developers_agency.link }}"><img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="CHEERS! Unlimited Web Agency"></a>
+        </div>
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/stories.bundle.min.js') }}"></script>
+{% endblock %}

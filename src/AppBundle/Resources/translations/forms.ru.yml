@@ -1,0 +1,85 @@
+# src/AppBundle/Resources/translations/forms.ru.yml
+common:
+    phone:
+        label: Ваш телефон
+
+reader:
+    email:
+        label: Ваш электронный адрес
+
+    pseudonym:
+        label:       Ваше имя или псевдоним (необходимо для рецензирования)
+        label_small: Ваше имя
+
+    password:
+        label: Введите ваш пароль
+
+    password_repeated:
+        label: Повторите ваш пароль
+
+    preferred_currency:
+        label: Выберите желаемую валюту для покупок
+
+    delivery:
+        service:
+            label: Выберите службу доставки
+
+        city:
+            label: Введите город
+
+        office:
+            label: Введите номер отделения
+
+        submit: Заказать
+
+authorization:
+    submit: Войти
+
+register:
+    submit: Зарегистрироваться
+
+reset:
+    submit: Сбросить
+
+feedback:
+    name:
+        label: Как я могу к вам обращаться?
+
+    email:
+        label: На какую почту вам ответить?
+
+    subject:
+        label: О чем вы бы хотели спросить?
+
+    message:
+        placeholder: Ваше сообщение
+
+    submit: Отправить
+
+review:
+    text:
+        placeholder: Поделитесь рецензией на это произведение
+
+    submit: Написать
+
+private_office:
+    email:
+        submit: Изменить
+
+    password:
+        submit: Изменить
+
+    currency:
+        submit: Выбрать
+
+    old_password:
+        label:       Текущий пароль
+        placeholder: Введите текущий пароль
+
+    new_password:
+        label:       Новый пароль
+        placeholder: Введите новый пароль
+
+    new_password_repeated:
+        label:       Повторите новый пароль
+        placeholder: Введите новый пароль повторно

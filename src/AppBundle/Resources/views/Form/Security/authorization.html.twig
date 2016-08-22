@@ -1,0 +1,32 @@
+{# src/AppBundle/Resources/views/Form/Security/authorization.html.twig #}
+{% if error %}
+    <p class="error-message">{{ error.messageKey|trans(error.messageData, 'security')|trim('.') }}</p>
+{% endif %}
+
+<form action="{{ path('private_office_login_check') }}" method="POST" id="auth-form">
+    <div class="field-holder">
+        <input type="email" name="_email" value="" id="auth-email" class="toggle-input"
+               data-rule-required="true" data-msg-required="{{ 'reader.email.not_blank'|trans({}, "validators") }}"
+               data-rule-email="true" data-msg-email="{{ 'reader.email.valid'|trans({}, "validators") }}">
+        <label for="auth-email">
+            <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+            <span class="title">{{ 'reader.email.label'|trans({}, "forms") }}</span>
+        </label>
+    </div>
+
+    <div class="field-holder">
+        <input type="password" name="_password" value="" id="auth-password" class="toggle-input"
+               data-rule-required="true"
+               data-msg-required="{{ 'reader.password.not_blank'|trans({}, "validators") }}">
+        <label for="auth-password">
+            <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+            <span class="title">{{ 'reader.password.label'|trans({}, "forms") }}</span>
+        </label>
+    </div>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <button type="submit">
+        <span>{{ 'authorization.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

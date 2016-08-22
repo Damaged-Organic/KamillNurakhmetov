@@ -1,0 +1,14 @@
+{# src/AppBundle/Resources/views/Email/feedback.html.twig #}
+<h1>{{ 'feedback.headline'|trans({}, "emails") }}</h1>
+<p>
+    {{ ( feedback.name ) ?: 'feedback.anonymous'|trans({}, "emails") }} ({{ feedback.email }}) {{ 'feedback.body'|trans({}, "emails") }}
+</p>
+<p>
+    {{ ( feedback.subject ) ? "'" ~ feedback.subject ~ "':" : "" }}
+</p>
+<p>
+    {{ feedback.message }}
+</p>
+<p>
+    <small>{{ 'feedback.at_date'|trans({}, "emails") }} {{ "now"|date("H:i, d-m-Y") }}.</small>
+</p>

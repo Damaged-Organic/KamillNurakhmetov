@@ -1,0 +1,5 @@
+{# src/AppBundle/Resources/views/Common/footer.html.twig #}
+<small>{{ 'common.footer.credits'|trans({ '%developers_agency_name%': developers_agency.name, '%developers_agency_link%': developers_agency.link })|raw }}</small>
+<div class="feedback-btn">
+    <a href="{{ path('feedback', { '_locale': app.request.locale }) }}" class="fa fa-envelope-o" title="{{ 'common.footer.feedback'|trans }}"></a>
+</div>

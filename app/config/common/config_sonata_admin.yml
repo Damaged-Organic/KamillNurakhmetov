@@ -1,0 +1,199 @@
+# app/config/common/config_sonata_admin.yml
+doctrine:
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
+                    ApplicationSonataUserBundle: ~
+
+twig:
+    form:
+        resources:
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
+        sonata.user.block.menu:
+        sonata.user.block.account:
+        sonata.block.service.text:
+
+parameters:
+    sonata.user.admin.user.class: AppBundle\Admin\UserAdmin
+
+sonata_user:
+    #security_acl: true
+    manager_type: orm
+    class:
+        user:         Application\Sonata\UserBundle\Entity\User
+        group:        Application\Sonata\UserBundle\Entity\Group
+
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    Application\Sonata\UserBundle\Entity\User
+
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+sonata_admin:
+    title:      "Dashboard"
+    #title_logo: bundles/app/images/boilerplate_logo.jpg
+    dashboard:
+        blocks:
+            -
+                position: left
+                type:     sonata.admin.block.admin_list
+            -
+                position: right
+                type:     sonata.block.service.text
+                settings:
+                    content: >
+                        <h2>Система управления содержимым</h2>
+                        <p>На вашем сайте для модерирования доступны следующие разделы:</p>
+                        <h4>SEO (Поисковая оптимизация)</h4>
+                        <p>
+                            В основном это служебная информация для поисковых роботов.
+                        </p>
+                        <h4>Пользователи</h4>
+                        <p>
+                            Контроль пользователей системы управления.
+                        </p>
+    templates:
+        layout:     ApplicationSonataUserBundle:Admin:standard_layout.html.twig
+        user_block: ApplicationSonataUserBundle:Admin\Core:user_block.html.twig
+
+services:
+    sonata.user.form.type.list_field:
+        class: Application\Sonata\UserBundle\Form\Type\LinkFieldType
+        tags:
+            - { name: form.type, alias: link_field }
+
+    sonata.user.admin.group:
+        abstract: true
+        public: false
+
+    #sonata.admin.menu:
+    #    class: MenuBundle\Admin\MenuAdmin
+    #    tags:
+    #        - { name:  sonata.admin, manager_type: orm, group: "Меню", label: "Пункты меню"}
+    #    arguments:
+    #        - ~
+    #        - MenuBundle\Entity\Menu
+    #        - ~
+    #    calls:
+    #        - [ setTranslationDomain, [MenuBundle] ]
+    #        - [ setRouter, ["@router"] ]
+
+    sonata.admin.metadata:
+        class: AppBundle\Admin\MetadataAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "SEO", label: "Метаданные" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Metadata
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.author:
+        class: AppBundle\Admin\AuthorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Биография", label: "Биография" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Author
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.book:
+        class: AppBundle\Admin\BookAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Произведения", label: "Книги" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Book
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.chapter:
+        class: AppBundle\Admin\ChapterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Произведения", label: "Главы", show_in_dashboard: false }
+        arguments:
+            - ~
+            - AppBundle\Entity\Chapter
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.story:
+        class: AppBundle\Admin\StoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Произведения", label: "Рассказы" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Story
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.review:
+        class: AppBundle\Admin\ReviewAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Произведения", label: "Рецензии" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Review
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.subscription:
+        class: AppBundle\Admin\SubscriptionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Подписка", label: "Типы подписки" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Subscription
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.reader:
+        class: AppBundle\Admin\ReaderAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Читатели", label: "Читатели" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Reader
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]
+
+    sonata.admin.order:
+        class: AppBundle\Admin\OrderAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Читатели", label: "Заказы читателей" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Order
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle] ]

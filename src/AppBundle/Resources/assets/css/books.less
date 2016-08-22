@@ -1,0 +1,280 @@
+@import "components/common.less";
+@import "components/forms.less";
+@import "components/authorization.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#content{
+    .text-holder{
+      width: 100%;
+      max-width: 1200px;
+      margin: 60px auto 0;
+      height: auto;
+      overflow: hidden;
+      h1{
+          font-size: 2.5em;
+          padding: 0 20px 10px;
+          text-align: center;
+          font-weight: 300;
+      }
+      p{
+        color: @darkGrey;
+        text-align: center;
+        padding: 0 20px 20px;
+      }
+    }
+    .grid{
+        max-width: 1160px;
+        margin: 0 auto 20px;
+        padding-top: 20px;
+        overflow: hidden;
+        .row{
+            height: auto;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  books view start                          */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.book-holder{
+    width: 49.137931%;
+    float: left;
+    background: @darkGrey;
+    position: relative;
+    box-shadow: 1px 1px 3px fade(@darkGrey, 50%);
+    border-radius: 3px;
+    overflow: hidden;
+    &:first-child{
+        margin-right: 1.724138%;
+    }
+    & > figure{
+        width: 50%;
+        height: 100%;
+        float: left;
+        overflow: hidden;
+    }
+    & > .info{
+        width: 50%;
+        float: left;
+        .book-title{
+            display: block;
+            color: @baseCream;
+            text-transform: uppercase;
+            padding: 20px 20px 10px 20px;
+            text-align: left;
+        }
+        time{
+            color: @darkBrown;
+            text-align: left;
+            padding: 0 20px;
+            font-size: .875em;
+        }
+        ul{
+            margin: 20px 20px;
+            li{
+                margin-top: 10px;
+                span{
+                    display: block;
+                    text-align: left;
+                    font-size: .875em;
+                    color: @baseCream;
+                }
+                span.fa{
+                    display: inline-block;
+                    color: @darkBrown;
+                    margin-right: 10px;
+                }
+            }
+        }
+        & > a{
+            display: block;
+            text-align: left;
+            padding: 0 20px;
+            color: @baseCream;
+            .transition;
+            &:hover,
+            &.touch-hover-active{
+                color: @rustGreen;
+            }
+        }
+        .btn-price{
+            margin-top: 20px;
+        }
+        .btn-small{
+            margin: 20px auto;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  books view end                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 800px){
+
+    #header{
+        position: relative;
+    }
+
+    #content{
+        .grid{
+            margin: 20px auto;
+            max-width: ~"calc(100% - 40px)";
+            padding-top: 0;
+            .row{
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .book-holder{
+        width: 100%;
+        float: none;
+        margin-bottom: 20px;
+        &:first-child{
+            margin-right: 0;
+        }
+        & > figure{
+            width: 40%;
+        }
+        & > .info{
+            width: 60%;
+            .btn-price{
+                margin: 20px;
+            }
+        }
+    }
+
+}
+@media only screen and(max-width: 640px) and(orientation: portrait){
+
+    .book-holder{
+        width: 100%;
+        float: none;
+        margin-bottom: 20px;
+        &:first-child{
+            margin-right: 0;
+        }
+        & > figure{
+            width: 50%;
+        }
+        & > .info{
+            width: 50%;
+            .btn-price{
+                width: 200px;
+                margin: 20px;
+                a{
+                    display: none;
+                }
+                a.mobile-buy{
+                    display: block;
+                    & > span{
+                        width: ~"calc(100% - 101px)";
+                    }
+                }
+            }
+        }
+    }
+
+}
+@media only screen and(max-width: 500px) and(orientation: portrait){
+
+    .book-holder{
+        & > figure{
+            display: block;
+            width: 100%;
+            height: 300px;
+            margin: 20px 20px 10px 20px;
+            position: relative;
+            & > img{
+                display: block;
+                width: auto;
+                height: 100%;
+                float: left;
+            }
+        }
+        & > .info{
+            width: 100%;
+            float: none;
+
+        }
+    }
+
+}
+@media only screen and(max-width: 360px) and(orientation: portrait){
+
+    .book-holder{
+        width: 100%;
+        float: none;
+        &:first-child{
+            margin-right: 0;
+        }
+        & > figure{
+            width: ~"calc(100% - 40px)";
+            height: auto;
+            img{
+                display: block;
+                width: 100%;
+                height: auto;
+                border-radius: 3px;
+                overflow: hidden;
+            }
+        }
+        & > .info{
+            h2{
+                color: @baseCream;
+                text-transform: uppercase;
+                padding: 20px 20px 10px 20px;
+                text-align: left;
+            }
+            time{
+                color: @darkBrown;
+                text-align: left;
+                padding: 0 20px;
+                font-size: .875em;
+            }
+            ul{
+                margin: 20px 20px;
+                li{
+                    margin-top: 10px;
+                    span{
+                        display: block;
+                        text-align: left;
+                        font-size: .875em;
+                        color: @baseCream;
+                    }
+                    span.fa{
+                        display: inline-block;
+                        color: @darkBrown;
+                        margin-right: 10px;
+                    }
+                }
+            }
+            & > a{
+                display: block;
+                text-align: left;
+                padding: 0 20px;
+                color: @baseCream;
+                .transition;
+                &:hover{
+                    color: @rustGreen;
+                }
+            }
+            .btn-price{
+                margin-top: 20px;
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

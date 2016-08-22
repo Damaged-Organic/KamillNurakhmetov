@@ -1,0 +1,56 @@
+{# src/AppBundle/Resources/views/Fallback/ie.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ 'fallback.title'|trans }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/browsers.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+        <main id="content">
+            <section class="outer support-holder">
+                <div class="inner">
+                    <div class="logo-holder">
+                        <a href="#">
+                            <a href="{{ path('index', { '_locale': app.request.locale }) }}"><img src="{{ asset('bundles/app/images/logo.png') }}" alt="{{ 'default.title'|trans }}"></a>
+                        </a>
+                    </div>
+                    <h1>{{ 'fallback.title'|trans }}</h1>
+                    <p>{{ 'fallback.text'|trans }}</p>
+                    <ul>
+                        <li>
+                            <span class="fa fa-chrome"></span>
+                            <p>Google Chrome</p>
+                            <a href="https://www.google.com/chrome/browser/desktop/index.html">{{ 'fallback.download'|trans }}</a>
+                        </li>
+                        <li>
+                            <span class="fa fa-firefox"></span>
+                            <p>Firefox</p>
+                            <a href="https://www.mozilla.org/ru/firefox/new/">{{ 'fallback.download'|trans }}</a>
+                        </li>
+                        <li>
+                            <span class="fa fa-opera"></span>
+                            <p>Opera</p>
+                            <a href="http://www.opera.com/ru">{{ 'fallback.download'|trans }}</a>
+                        </li>
+                        <li>
+                            <span class="fa fa-safari"></span>
+                            <p>Safari</p>
+                            <a href="https://support.apple.com/downloads/safari">{{ 'fallback.download'|trans }}</a>
+                        </li>
+                        <li>
+                            <span class="fa fa-internet-explorer"></span>
+                            <p>Internet Explorer 9+</p>
+                            <a href="https://www.microsoft.com/ru-ru/download/internet-explorer.aspx">{{ 'fallback.download'|trans }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock %}

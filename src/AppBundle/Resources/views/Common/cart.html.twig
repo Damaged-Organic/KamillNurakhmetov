@@ -1,0 +1,11 @@
+{# src/AppBundle/Resources/views/Common/cart.html.twig #}
+<a href="{{ path('order', { '_locale': app.request.locale }) }}" class="touch-hover" id='cart-widget'>
+    <span class="info">
+        {% if totalQuantity %}
+            {{ 'common.cart.items'|transchoice(totalQuantity) }} | {{ totalPrice }} {{ app.user.preferredCurrency }}
+        {% else %}
+            {{ 'common.cart.empty'|trans|lower }}
+        {% endif %}
+    </span>
+    <span class="fa fa-shopping-basket"></span>
+</a>

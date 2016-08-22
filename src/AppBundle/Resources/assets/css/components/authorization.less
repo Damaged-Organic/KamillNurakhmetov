@@ -1,0 +1,230 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout start												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page{
+	position: relative;
+}
+#authorization-holder{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 30;
+	.transition;
+	background: fade(@darkGrey, 80%);
+	transform: translateY(100%) scale(0);
+	& > .inner{
+		display: none;
+		width: 100%;
+		max-width: 520px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background: @baseCream;
+		border-radius: 3px;
+		box-shadow: 1px 2px 3px @darkGrey;
+		transform: translateX(-50%) translateY(-50%);
+		& > h2{
+			text-transform: uppercase;
+			margin-top: 20px;
+			font-weight: normal;
+		}
+		p{ color: @darkBrown; }
+		& > form{
+			width: 90%;
+			margin: 40px auto 0;
+			.field-holder{
+				margin-bottom: 20px;
+			}
+			button[type=submit]{
+				margin: 40px auto 0;
+			}
+		}
+		& > .auth-action-holder{
+			width: 90%;
+			margin: 20px auto 40px;
+			overflow: hidden;
+			a.auth-action{
+				display: inline-block;
+				color: @rustGreen;
+				&:hover{
+					text-decoration: underline;
+				}
+			}
+		}
+		.close-holder{
+			display: block;
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			background: transparent;
+			cursor: pointer;
+			& > span{
+				display: block;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				line-height: 32px;
+				font-size: 1.5em;
+				color: @darkGrey;
+				.transition;
+				&:hover{
+					color: @rustGreen;
+				}
+			}
+		}
+		p.error-message{
+			padding: 20px 20px 0;
+			text-align: center;
+			color: #990000;
+		}
+	  	p.notification-message{
+			padding: 20px 20px 0;
+			text-align: center;
+			color: @rustGreen;
+		}
+	}
+	&.active{
+		transform: translateY(0%) scale(1);
+		& > .inner.active{
+			display: block;
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout end												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	authorization start										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#authorization-holder{
+	.authorization{
+		& > .auth-action-holder{
+			a.auth-action{
+				float: left;
+				&:last-child{
+					float: right;
+				}
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	authorization end										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	registration start										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#authorization-holder{
+	.registration{
+		.row{
+			width: 100%;
+			overflow: hidden;
+			p{
+				text-align: left;
+				padding-bottom: 10px;
+			}
+			.field-holder{
+				width: 50px;
+				height: 50px;
+				float: left;
+				margin-right: 20px;
+				input[type=radio]{
+					& + label{
+						width: 100%;
+						height: 100%;
+						margin: 0;
+						.radio{
+							float: none;
+							line-height: 46px;
+							border: 2px solid @darkGrey;
+							color: @darkGrey;
+						}
+					}
+					&:checked + label .radio,
+					&:hover + label .radio{
+						border: 2px solid @rustGreen;
+						color: @rustGreen;
+					}
+				}
+			}
+		}
+		& > form button[type=submit]{
+			margin-top: 20px;
+		}
+		& > .auth-action-holder{
+			text-align: center;
+			a.auth-action,
+			a.auth-action:last-child{
+				float: none;
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	registration end										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	reset password start									*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#authorization-holder{
+	.reset{
+		& > .auth-action-holder{
+			text-align: center;
+			a.auth-action,
+			a.auth-action:last-child{
+				float: none;
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	reset password end									*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive auth start										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 640px){
+	
+	#authorization-holder{
+		width: 100%;
+		height: 100%;
+		min-height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 30;
+		.transition;
+		background: fade(@darkGrey, 80%);
+		transform: translateY(100%) scale(0);
+		& > .inner{
+			max-width: 100%;
+			height: 100%;
+			min-height: 100%;
+			padding-right: 20px;
+			top: 0%;
+			left: 0%;
+			border-radius: 0px;
+			box-shadow: none;
+			transform: translateX(0%) translateY(0%);
+			overflow: hidden;
+			overflow-x: hidden;
+			overflow-y: auto;
+			.close-holder{
+				top: 10px;
+				right: 30px;
+			}
+		}
+	}
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive auth end										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

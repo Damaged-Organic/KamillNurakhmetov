@@ -1,0 +1,98 @@
+{# src/AppBundle/Resources/views/State/order.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('order') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/order.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content" class="sticky-footer">
+            <h1>{{ 'order.title'|trans }}</h1>
+			<div class="outer" id="basket-holder">
+				<div class="inner">
+
+                    {% if orderBooks %}
+                        <section class="grid">
+
+                            {% for orderBook in orderBooks %}
+                                <article class="cell basket-item">
+                                    <figure>
+                                        <img src="{{ vich_uploader_asset(orderBook.book, 'coverFile') }}" alt="{{ orderBook.book.title }}">
+                                    </figure>
+                                    <div class="info">
+                                        <span class="upper-title">{{ 'books.book.version.paper'|trans }}</span>
+                                        <h2>{{ orderBook.book.title }}</h2>
+                                        <time datetime="{{ orderBook.book.year }}">{{ 'books.book.edition'|trans }} {{ orderBook.book.year }} года</time>
+                                    </div>
+                                    <div class="counter-holder">
+                                        <span class="counter-btn fa fa-minus"
+                                              data-path="{{ path('cart_book_decrease', { '_locale': app.request.locale, 'id': orderBook.book.id }) }}"></span>
+                                        <span class="quantity">{{ orderBook.quantity }}</span>
+                                        <span class="counter-btn fa fa-plus"
+                                              data-path="{{ path('cart_book_increase', { '_locale': app.request.locale, 'id': orderBook.book.id }) }}"></span>
+                                    </div>
+                                    <div class="price-holder">
+                                        <p>
+                                            <span class="price">
+                                                {{ orderBook.getItemsPrice(app.user) }}
+                                            </span>
+                                            {{ app.user.preferredCurrency }}
+                                        </p>
+                                    </div>
+                                    <div class="delete">
+                                        <a href="{{ path('cart_book_remove', { '_locale': app.request.locale, 'id': orderBook.book.id }) }}" class="fa fa-times"></a>
+                                    </div>
+                                </article>
+                            {% endfor %}
+
+                        </section>
+                        <section class="order-holder">
+    						<h2>{{ 'order.form'|trans }}</h2>
+    						<div class="inner">
+
+                                {{ render(controller('AppBundle:Form/Order:formOrder')) }}
+
+    						</div>
+    					</section>
+                    {% else %}
+                        <p class="empty">{{ 'order.empty'|trans }}</p>
+                    {% endif %}
+
+				</div>
+			</div>
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer" class="sticky">
+        <div class="cheers-logo">
+            <a href="{{ developers_agency.link }}"><img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="CHEERS! Unlimited Web Agency"></a>
+        </div>
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/order.bundle.min.js') }}"></script>
+{% endblock %}

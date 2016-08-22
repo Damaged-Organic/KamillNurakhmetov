@@ -1,0 +1,351 @@
+@import "components/common.less";
+@import "components/forms.less";
+@import "components/authorization.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#content h1 {
+    font-size: 3.5em;
+    padding: 40px 0 20px;
+}
+p.empty{
+    font-size: 1.125em;
+    text-align: center;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  basket start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#basket-holder{
+    margin: 40px auto;
+    .inner{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .grid,
+    .cell{
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+    .grid{
+        .basket-item{
+            background: @darkGrey;
+            position: relative;
+            margin-bottom: 20px;
+            figure{
+                width: 200px;
+                float: left;
+                padding: 20px 0 20px 20px;
+                box-sizing: border-box;
+            }
+            .info{
+                width: ~"calc(100% - 200px)";
+                float: left;
+                position: relative;
+                overflow: hidden;
+                .upper-title{
+                    display: block;
+                    text-align: left;
+                    color: @baseCream;
+                    font-size: .875em;
+                    text-transform: uppercase;
+                    font-weight: 300;
+                    padding: 20px 20px 0;
+                }
+                h2{
+                    font-size: 1.5em;
+                    text-align: left;
+                    color: @baseCream;
+                    font-weight: 400;
+                    padding: 20px 20px 10px;
+                }
+                time{
+                    text-align: left;
+                    padding: 0 20px;
+                    color: @rustGreen;
+                }
+            }
+            .price-holder{
+                width: 100%;
+                height: 40px;
+                position: absolute;
+                left: 0;
+                bottom: 20px;
+                p{
+                    line-height: 40px;
+                    padding: 0 20px;
+                    color: @baseCream;
+                    font-size: 1.5em;
+                    text-align: right;
+                    text-transform: uppercase;
+                    span{
+                        font-size: inherit;
+                        color: inherit;
+                    }
+                }
+            }
+            .counter-holder{
+                width: 120px;
+                height: auto;
+                position: absolute;
+                right: 20px;
+                bottom: 70px;
+                z-index: 20;
+                overflow: hidden;
+                .counter-btn{
+                    display: block;
+                    width: 30px;
+                    height: 30px;
+                    float: left;
+                    background: @darkBrown;
+                    border-radius: 3px;
+                    text-align: center;
+                    line-height: 30px;
+                    color: @baseCream;
+                    cursor: pointer;
+                    transition: all .5s @easing 0s;
+                    overflow: hidden;
+                    &:before{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    &:hover{
+                        background: @rustGreen;
+                    }
+                }
+                .quantity{
+                    display: block;
+                    width: 60px;
+                    height: 30px;
+                    float: left;
+                    color: @rustGreen;
+                    text-align: center;
+                    line-height: 30px;
+                    font-size: 1.25em;
+                    font-weight: 400;
+                }
+            }
+            .delete{
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                a{
+                    display: block;
+                    color: @baseCream;
+                    text-align: center;
+                    line-height: 40px;
+                    font-size: 1.5em;
+                    transition: all .5s @easing 0s;
+                    &:hover{
+                        color: @rustGreen;
+                    }
+                }
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  basket end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  order start                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.order-holder{
+    h2{
+        font-size: 1.25em;
+        text-align: left;
+        font-weight: 400;
+        padding: 20px 0;
+        border-bottom: 1px solid #2b2b2b;
+    }
+    .inner{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    p{
+        text-align: left;
+        padding: 10px 10px 0;
+    }
+}
+
+#order-form{
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    .field-holder.several{
+        margin-top: 20px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        height: auto;
+        p{
+            text-align: left;
+            font-weight: 700;
+            padding: 0 0 10px 0px;
+        }
+        .field-holder{
+            width: 140px;
+            height: auto;
+            float: left;
+            margin-right: 20px;
+            input[type="radio"]{
+                & + label{
+                    width: 100%;
+                    margin: 0;
+                    .radio{
+                        max-width: 100%;
+                        border: 2px solid @darkGrey;
+                        line-height: 36px;
+                        color: @darkGrey;
+                    }
+                }
+                & + label:hover,
+                &:checked + label{
+                    .radio{
+                        border: 2px solid @rustGreen;
+                        color: @rustGreen;
+                    }
+                }
+            }
+        }
+    }
+    .total-price-holder{
+        width: 100%;
+        margin: 40px 0 20px;
+        p{
+            font-size: 1.125em;
+            text-align: right;
+            color: @darkGrey;
+            text-transform: uppercase;
+            span{
+                font-size: 1.25em;
+                color: @rustGreen;
+            }
+        }
+    }
+    button[type="submit"]{
+        float: right;
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  order end                                 */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @mobileM{
+
+    #basket-holder{
+        .grid{
+            padding: 0 20px;
+            box-sizing: border-box;
+            .basket-item{
+                margin-bottom: 20px;
+                figure{
+                    width: 140px;
+                    padding: 0;
+                }
+                .info{
+                    width: ~"calc(100% - 140px)";
+                    float: left;
+                    position: relative;
+                    overflow: hidden;
+                    .upper-title,
+                    time{
+                        display: none;
+                    }
+                    h2{
+                        font-size: 1.125em;
+                        padding: 20px 40px 10px 20px;
+                    }
+                }
+                .price-holder{
+                    left: 0;
+                    bottom: 20px;
+                    p{
+                        font-size: 1.25em;
+                        text-align: left;
+                        padding: 0 0 0 160px;
+                    }
+                }
+                .counter-holder{
+                    left: 160px;
+                    right: auto;
+                }
+            }
+        }
+    }
+
+    .order-holder{
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+}
+
+@media only screen and @mobileS{
+
+    #basket-holder{
+        margin-top: 0;
+        .grid{
+            padding: 0 20px;
+            box-sizing: border-box;
+            .basket-item{
+                margin-bottom: 20px;
+                figure{
+                    width: 100%;
+                    padding: 20px;
+                }
+                .info{
+                    width: 100%;
+                    float: none;
+                    h2{
+                        font-size: 1.125em;
+                        padding: 0px 20px 20px;
+                    }
+                }
+                .price-holder{
+                    position: static;
+                    right: auto;
+                    left: auto;
+                    bottom: auto;
+                    height: auto;
+                    p{
+                        font-size: 1.25em;
+                        text-align: left;
+                        padding: 10px 20px 20px;
+                    }
+                }
+                .counter-holder{
+                    position: static;
+                    left: auto;
+                    right: auto;
+                    padding: 0 20px;
+                }
+            }
+        }
+    }
+
+    #order-form{
+        padding: 0;
+        .field-holder.several{
+            .field-holder{
+                float: none;
+                margin-top: 10px;
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

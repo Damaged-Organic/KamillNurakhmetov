@@ -1,0 +1,180 @@
+@import "components/common.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout start												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page{
+	height: 100%;
+	background: url(../images/linedpaper.jpg) repeat 0 0 fixed;
+	overflow: hidden;
+}
+.outer{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.inner{
+	width: 100%;
+	max-width: 800px;
+	height: 500px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout end												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	not found start											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#not-found-holder{
+	.inner{
+		& > span.rotated{
+			display: inline-block;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			font-size: 3.75em;
+			line-height: 70px;
+			text-transform: uppercase;
+			transform: translateX(~"calc(-50% + 35px)") translateY(-50%) rotate(-90deg);
+			transform-origin: 50% 50%;
+			color: @rustGreen;
+		}
+		h2{
+			font-size: 2em;
+			text-align: left;
+			padding: 3px 0 0 80px;
+			text-transform: uppercase;
+		}
+		p{
+			text-align: left;
+			padding: 3px 0 0 80px;
+		}
+		a{
+			display: inline-block;
+			vertical-align: middle;
+			width: 100%;
+			position: absolute;
+			right: 0;
+			bottom: 0px;
+			text-align: right;
+			font-size: 1em;
+			color: @darkBrown;
+			text-transform: uppercase;
+			font-weight: bold;
+			.transition;
+			& > span{
+				display: inline-block;
+				vertical-align: middle;
+				color: @darkBrown;
+				margin-bottom: 3px;
+				font-size: 1.75em;
+				.transition;
+				transform: translateX(-10px);
+			}
+			&:hover{
+				color: @rustGreen;
+				& > span{
+					color: @rustGreen;
+					transform: translateX(-30px);
+				}
+			}
+		}
+		.circle{
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			border-radius: 50%;
+			margin: -100px 0 0 -100px;
+			background: @darkGrey;
+			& > span{
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				font-size: 10em;
+				color: @darkBrown;
+				transform: translateX(-50%) translateY(-50%);
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	not found end											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive start											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 640px){
+
+	.inner{
+		width: 90%;
+		max-width: 90%;
+		height: auto;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+	}
+
+	#not-found-holder{
+		.inner{
+			& > span.rotated{
+				font-size: 3em;
+			}
+			.circle{
+				position: relative;
+				top: 0%;
+				left: 0%;
+				margin: 40px auto 80px;
+			}
+		}
+	}
+
+}
+
+@media only screen and(max-width: 500px){
+
+	#not-found-holder{
+		.inner{
+			& > span.rotated{
+				font-size: 2.25em;
+				line-height: 50px;
+			}
+			h2, p{
+				padding-left: 60px;
+			}
+			.circle{
+				width: 100px;
+				height: 100px;
+				& > span{
+					font-size: 5em;
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and(max-width: 380px){
+
+	#not-found-holder{
+		.inner{
+			& > span.rotated{
+				display: none;
+			}
+			h2, p{
+				padding-left: 0px;
+			}
+		}
+	}
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive end											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

@@ -1,0 +1,13 @@
+{# src/AppBundle/Resources/views/Email/reset.html.twig #}
+<h1>{{ 'reset.headline'|trans({}, "emails") }}</h1>
+<p>
+    {{ 'reset.body'|trans({}, "emails") }}
+</p>
+<p>
+    <a href="{{ url('reset_confirm', { '_locale': app.request.locale, 'readerId': readerId, 'resetDigest': resetDigest }) }}">
+        {{ 'reset.link'|trans({}, "emails") }}
+    </a>
+</p>
+<p>
+    <small>{{ 'default.bottomline'|trans({}, "emails") }}</small>
+</p>

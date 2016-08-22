@@ -1,0 +1,261 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	review start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#review-holder{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 20;
+	background: fade(@darkGrey, 80%);
+	.transition;
+	transform: translateX(100%);
+	visibility: hidden;
+	overflow: hidden;
+	&.active{
+		transform: translateX(0%);
+		visibility: visible;
+	}
+	& > .inner.inner-holder{
+		width: 600px;
+		height: 100%;
+		float: right;
+		background: @darkGrey;
+		overflow: hidden;
+	}
+	.close-button{
+		display: block;
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		z-index: 20;
+		font-size: 2em;
+		background: @darkGrey;
+		color: @darkBrown;
+		text-align: center;
+		line-height: 40px;
+		cursor: pointer;
+		.transition;
+		overflow: hidden;
+		&:hover{
+			color: @rustGreen;
+		}
+	}
+	.inner:not(.inner-holder){
+		width: 100%;
+		height: ~"calc(100% - 220px)";
+		padding-right: 20px;
+		overflow: auto;
+	}
+	.review{
+		display: none;
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		&.active{
+			display: block;
+		}
+		.title-info{
+			&:after{
+				display: block;
+				width: 560px;
+				height: 1px;
+				margin: 0 20px;
+				background: @darkBrown;
+				content: "";
+			}
+			h2{
+				text-transform: uppercase;
+				color: @baseCream;
+				text-align: left;
+				padding: 40px 20px 20px;
+			}
+			p{
+				color: @baseCream;
+				text-align: left;
+				padding: 0 20px 20px;
+			}
+		}
+		& > p{
+			color: @baseCream;
+			padding: 20px;
+			text-align: left;
+		}
+		.no-review{
+			text-align: left;
+			padding: 40px 20px 20px;
+			color: @rustGreen;
+		}
+	}
+	.comments-holder{
+		width: ~"calc(100% - 40px)";
+		margin: 40px 20px 0;
+		overflow: hidden;
+		.panel{
+			width: 100%;
+			position: relative;
+			padding-bottom: 10px;
+			overflow: hidden;
+			&:after{
+				display: block;
+				width: 100%;
+				height: 1px;
+				position: absolute;
+				left: 40px;
+				bottom: 0;
+				content: "";
+				background: @darkBrown;
+				overflow: hidden;
+			}
+			h2, span, time{
+				display: inline-block;
+				vertical-align: top;
+			}
+			span.fa{
+				font-size: 1.5em;
+				color: @darkBrown;
+			}
+			h2{
+				text-transform: uppercase;
+				color: @baseCream;
+				padding-left: 10px;
+			}
+			time{
+				float: right;
+				font-size: .875em;
+				color: @baseCream;
+			}
+		}
+		p{
+			padding: 20px 0;
+			text-align: left;
+			color: @baseCream;
+		}
+	}
+	&.on-stories .comments-holder{
+		margin: 60px 20px 0;
+	}
+	.review-form-holder{
+		width: 600px;
+		height: 200px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+		overflow: hidden;
+		h2{
+			text-align: left;
+			padding-left: 20px;
+			text-transform: uppercase;
+			color: @baseCream;
+		}
+		#review-form{
+			display: block;
+			width: ~"calc(100% - 40px)";
+			margin: 10px 20px 20px;
+			overflow: hidden;
+			&.hide{
+				display: none;
+			}
+			.field-holder{
+				margin-bottom: 20px;
+				.borderBox;
+				overflow: hidden;
+			}
+			button[type=submit]{
+				float: right;
+			}
+		}
+		#response-holder{
+			width: 100%;
+			.centered(0, 50%, 0, -50%);
+			overflow: hidden;
+			.success,
+			.error{
+				font-size: 1em;
+				text-align: center;
+				color: @successColor;
+			}
+			.error{
+				color: @errorColor;
+			}
+		}
+	}
+    &.no-form{
+        .inner{
+            height: 100%;
+        }
+        .review-form-holder{
+            display: none;
+        }
+    }
+}
+
+#review-holder{
+    &.on-stories{
+        .review-align-holder{
+            width: 600px;
+            float: right;
+            height: 100%;
+            background: @darkGrey;
+            overflow: hidden;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	review end												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive start											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 800px){
+
+	#review-holder{
+		width: 100%;
+		& > .inner.inner-holder{
+			width: 100%;
+			float: none;
+		}
+		.review{
+			display: none;
+			width: 100%;
+			height: auto;
+			overflow: hidden;
+			&.active{
+				display: block;
+			}
+			.book-info{
+				&:after{
+					width: ~"calc(100% - 40px)";
+				}
+			}
+		}
+		.review-form-holder{
+			width: 100%;
+		}
+	}
+
+}
+@media only screen and(max-width: 500px) and(orientation: portrait){
+
+	#review-holder{
+		.comments-holder{
+			.panel{
+				h2{
+					font-size: .875em;
+				}
+				time{
+					display: none;
+				}
+			}
+		}
+	}
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive end											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

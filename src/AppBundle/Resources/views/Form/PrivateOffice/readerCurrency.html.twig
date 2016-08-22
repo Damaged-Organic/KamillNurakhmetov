@@ -1,0 +1,49 @@
+{# src/AppBundle/Resources/views/Form/PrivateOffice/readerCurrency.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        <p class="error-message">{{ message.error }}</p>
+    {% endif %}
+    {% if message.notification is defined %}
+        <p class="notification-message">{{ message.notification }}</p>
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('reader_currency_send', { '_locale': app.request.locale }) }}" method="POST" id="currency-change">
+    <div class="row">
+        <div class="field-holder">
+            {{ form_widget(form.preferredCurrency.0, {
+                'id': "uah"
+            }) }}
+            {% block radio_label_reader_currency_uah %}
+                {{ block('base_form_label') }}
+                <label for="uah"><span class="radio">UAH</span></label>
+            {% endblock %}
+        </div>
+        <div class="field-holder">
+            {{ form_widget(form.preferredCurrency.1, {
+                'id': "usd"
+            }) }}
+            {% block radio_label_reader_currency_usd %}
+                {{ block('base_form_label') }}
+                <label for="usd"><span class="radio">USD</span></label>
+            {% endblock %}
+        </div>
+        <div class="field-holder">
+            {{ form_widget(form.preferredCurrency.2, {
+                'id': "rub"
+            }) }}
+            {% block radio_label_reader_currency_rub %}
+                {{ block('base_form_label') }}
+                <label for="rub"><span class="radio">RUB</span></label>
+            {% endblock %}
+        </div>
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit">
+        <span>{{ 'private_office.currency.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

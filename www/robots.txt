@@ -1,0 +1,6 @@
+User-agent: *
+
+Allow: /
+
+Host: ru.kamillnurakhmetov.com.ua
+Sitemap: http://ru.kamillnurakhmetov.com.ua/sitemap.xml

@@ -1,0 +1,28 @@
+# app/config/common/config_formatter.yml
+ivory_ck_editor:
+    default_config: standard_config
+    configs:
+        standard_config:
+            language: '%locale%'
+            toolbar:  [ ['Bold','Italic','Underline'], ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Link','Unlink'], ['Image'], ['Cut','Copy','Paste','-','Undo','Redo'], ['Maximize'] ]
+
+        base_config:
+            language: '%locale%'
+            toolbar:  [ ['Bold','Italic','Underline'], ['Cut','Copy','Paste','-','Undo','Redo'], ['Separator'], ['Maximize'] ]
+
+        extended_config:
+            language: '%locale%'
+            toolbar:  [ ['Bold','Italic','Underline'], [ 'NumberedList','BulletedList' ], ['Cut','Copy','Paste','-','Undo','Redo'], ['Maximize'] ]
+
+sonata_formatter:
+    formatters:
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+
+twig:
+    form:
+        resources:
+            - 'SonataFormatterBundle:Form:formatter.html.twig'

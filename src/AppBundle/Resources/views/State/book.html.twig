@@ -1,0 +1,162 @@
+{# src/AppBundle/Resources/views/State/book.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ book.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ book.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('books_default', { 'id': book.id }) }}">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/book.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content" class="sticky-footer">
+            <article class="outer book-item-holder">
+				<div class="inner">
+					<figure class="book-cover-holder">
+						<img src="{{ vich_uploader_asset(book, 'coverFile') }}" alt="{{ book.title }}">
+					</figure>
+					<div class="book-info">
+						<h1>{{ book.title }}</h1>
+						<time datetime="{{ book.year }}">{{ 'books.book.edition'|trans }} {{ book.year }} года</time>
+						<p>{{ book.description }}</p>
+                        <ul>
+                            <li>
+                                <p>
+                                    <span class="fa fa-reply"></span>{{ 'books.quantity.reviews'|transchoice(book.reviews|length) }}
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <span class="fa fa-book"></span>{{ 'books.quantity.views'|transchoice(book.views) }}
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <span class="fa fa-file"></span>{{ 'books.quantity.pages'|transchoice(book.pages) }}
+                                </p>
+                            </li>
+                        </ul>
+
+                        {% if not is_granted('BOOK_ACQUIRED', book) %}
+                            <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id }) }}">{{ 'books.book.read_part'|trans }}</a>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_READER') %}
+                            {% if is_granted('BOOK_ACQUIRED', book) %}
+                                <div class="btn-small">
+                                    <a href="{{ path('reader_book', { '_locale': app.request.locale, 'bookId': book.id }) }}">
+                                        {{ 'books.book.read'|trans }}
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="btn-price">
+                                    <a href="{{ path('payment_liq_pay_processing_buy_book', { '_locale': app.request.locale, 'bookId': book.id }) }}">
+                                        <span class="label">{{ 'books.book.version.electronic'|trans }}</span>
+                                        <span class="price">{{ book.getPrice(app.user.preferredCurrency) ~ ' ' ~ app.user.preferredCurrency }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            {% if book.hasPaper %}
+                                <div class="btn-price">
+                                    <a href="{{ path('cart_book_add', { '_locale': app.request.locale, 'id': book.id }) }}">
+                                        <span class="label">{{ 'books.book.version.paper'|trans }}</span>
+                                        <span class="price">{{ book.getPricePaper(app.user.preferredCurrency) ~ ' ' ~ app.user.preferredCurrency }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                        {% else %}
+                            <div class="btn-price auth-action" data-auth-action="authorization">
+                                <a href="#">
+                                    <span class="label">{{ 'books.book.version.electronic'|trans }}</span>
+                                    <span class="price">{{ book.priceUah }} UAH</span>
+                                </a>
+                            </div>
+
+                            {% if book.hasPaper %}
+                                <div class="btn-price auth-action" data-auth-action="authorization">
+                                    <a href="#">
+                                        <span class="label">{{ 'books.book.version.paper'|trans }}</span>
+                                        <span class="price">{{ book.pricePaperUah }} UAH</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                        {% endif %}
+
+                        {% if book.hasPaper %}
+
+                            {% if book.isAvailable %}
+                                <span class="available">{{ 'books.book.available.yes'|trans }}</span>
+                            {% else %}
+                                <span class="available no">{{ 'books.book.available.no'|trans }}</span>
+                            {% endif %}
+
+                        {% endif %}
+
+					</div>
+				</div>
+				<aside class="reviews-holder">
+					<h2>Отзывы о книге</h2>
+
+                    {% if book.reviews|length %}
+    					<section class="comments-holder">
+
+                            {% for review in book.reviews %}
+        						<article class="comment">
+        							<h3><span class="fa fa-comment"></span>{{ review.authorCredentials }}</h3>
+        							<time datetime="{{ review.publishedAt|date('Y-m-d') }}">
+        							    {{ review.publishedAt|date('d F Y')|localizeddate('full', 'none', app.request.locale)  }}
+        							</time>
+        							<p>{{ review.text }}</p>
+        						</article>
+                            {% endfor %}
+
+    					</section>
+                    {% else %}
+                        <p class="empty">{{ 'books.review.empty'|trans }}</p>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_READER') %}
+
+                        {{ render(controller('AppBundle:Form/Review:formReviewBook', { 'bookId': book.id })) }}
+
+                    {% endif %}
+
+				</aside>
+			</article>
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+    <footer id="footer" class="sticky">
+        <div class="cheers-logo">
+            <a href="{{ developers_agency.link }}"><img src="{{ asset('bundles/app/images/cheers-logo.png') }}" alt="CHEERS! Unlimited Web Agency"></a>
+        </div>
+        {% include 'AppBundle:Common:footer.html.twig' only %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/books.bundle.min.js') }}"></script>
+{% endblock %}

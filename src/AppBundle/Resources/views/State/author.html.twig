@@ -1,0 +1,69 @@
+{# src/AppBundle/Resources/views/State/author.html.twig #}
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ metadata.title }} | {{ 'default.title'|trans }}
+{% endblock %}
+
+{% block metadata %}
+    <meta name="description" content="{{ metadata.description }}" >
+    <meta name="robots" content="{{ metadata.robots }}">
+{% endblock %}
+
+{% block locale %}
+    <link rel="canonical" href="{{ url('author_default') }}" />
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/about.bundle.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="page">
+
+        {% include 'AppBundle:Common:header.html.twig' only %}
+
+        <main id="content">
+            <section class="outer about-intro-holder">
+                <div class="inner">
+                    <span>{{ author.title }}</span>
+                    <h1>{{ 'author.headline'|trans }}</h1>
+                </div>
+            </section>
+            <section class="outer about-info-holder">
+                <div class="inner">
+                    <div class="info clearfix">
+						<span class="item">
+							<span class="fa fa-pencil"></span>
+                            {{ 'author.quantity.works'|transchoice(author.worksNumber) }}
+						</span>
+						<span class="item">
+                            {{ 'author.quantity.readers'|transchoice(author.readersNumber) }}
+                            <span class="fa fa-book"></span>
+						</span>
+                    </div>
+                    <figure class="portrait">
+                        <img src="{{ asset('bundles/app/images/kamill.jpg') }}" alt="Kamill Nurahmetov">
+                    </figure>
+
+                    {{ author.text|raw }}
+
+                </div>
+            </section>
+            <footer id="footer">
+                {% include 'AppBundle:Common:footer.html.twig' only %}
+            </footer>
+        </main>
+
+        {{ render(controller('AppBundle:Security/ReaderAccess:authorization')) }}
+
+    </div>
+
+    {% include 'AppBundle:Common:orientation.html.twig' only %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/about.bundle.min.js') }}"></script>
+{% endblock %}

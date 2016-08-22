@@ -1,0 +1,44 @@
+{# src/AppBundle/Resources/views/Common/authorization.html.twig #}
+{% set authorizationActive = authorizationError or registrationMessage or resetMessage %}
+<div id="authorization-holder" {{ ( authorizationActive ) ? 'class="active"' : null }}>
+    <section class="inner authorization {{ ( authorizationError ) ? 'active' : null }}">
+        <h2>{{ 'common.authorization.login.headline'|trans }}</h2>
+        <p>{{ 'common.authorization.login.subheadline'|trans }}</p>
+
+        {% include 'AppBundle:Form/Security:authorization.html.twig' with { 'error': authorizationError } only %}
+
+        <div class="auth-action-holder">
+            <a href="#" class="auth-action" data-auth-action="reset">{{ 'common.authorization.login.reset'|trans }}</a>
+            <a href="#" class="auth-action" data-auth-action="registration">{{ 'common.authorization.login.register'|trans }}</a>
+        </div>
+        <div class="close-holder">
+            <span class="fa fa-times"></span>
+        </div>
+    </section>
+    <section class="inner registration {{ ( registrationMessage ) ? 'active' : null }}">
+        <h2>{{ 'common.authorization.registration.headline'|trans }}</h2>
+        <p>{{ 'common.authorization.registration.subheadline'|trans }}</p>
+
+        {% include 'AppBundle:Form/Security:registration.html.twig' with { 'form': registrationForm, 'message': registrationMessage } only %}
+
+        <div class="auth-action-holder">
+            <a href="#" class="auth-action" data-auth-action="authorization">{{ 'common.authorization.registration.login'|trans }}</a>
+        </div>
+        <div class="close-holder">
+            <span class="fa fa-times"></span>
+        </div>
+    </section>
+    <section class="inner reset {{ ( resetMessage ) ? 'active' : null }}">
+        <h2>{{ 'common.authorization.reset.headline'|trans }}</h2>
+        <p>{{ 'common.authorization.reset.subheadline'|trans }}</p>
+
+        {% include 'AppBundle:Form/Security:reset.html.twig' with { 'form': resetForm, 'message': resetMessage } only %}
+
+        <div class="auth-action-holder">
+            <a href="#" class="auth-action" data-auth-action="authorization">{{ 'common.authorization.reset.login'|trans }}</a>
+        </div>
+        <div class="close-holder">
+            <span class="fa fa-times"></span>
+        </div>
+    </section>
+</div>

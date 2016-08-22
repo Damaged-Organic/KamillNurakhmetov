@@ -1,0 +1,170 @@
+@import "components/common.less";
+@import "components/forms.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page{
+    height: 100%;
+    background: url(../images/feedback-bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+#content,
+.outer{
+    height: auto;
+    min-height: 100%;
+}
+.outer{
+    position: relative;
+}
+.inner{
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: @baseCream;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px 0 lighten(@darkGrey, 50%);
+    overflow: hidden;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  feedback start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#feedback-holder{
+    height: auto;
+    min-height: auto;
+    .inner{
+        & > p{
+            text-align: left;
+            padding: 20px 20px 0;
+            a{
+                color: @rustGreen;
+                font-size: inherit;
+            }
+        }
+    }
+    h1{
+        font-size: 3.5em;
+        padding: 80px 0 20px;
+    }
+    form{
+        width: 100%;
+        margin: 40px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    .field-holder{
+        margin-bottom: 20px;
+    }
+    .field-holder.area{
+        margin: 40px auto;
+        height: auto;
+        textarea{
+            min-height: 120px;
+            max-height: 120px;
+            border: 1px solid @darkGrey;
+            &:hover,
+            &:focus{
+                border: 1px solid @rustGreen;
+            }
+        }
+    }
+    button[type=submit]{
+        margin: 0 auto;
+    }
+    .back-link{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        a{
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
+            text-align: left;
+            background: @darkGrey;
+            color: @baseCream;
+            .transition;
+            &:hover{
+                color: @rustGreen;
+            }
+            span{
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+                color: inherit;
+            }
+        }
+    }
+    .error-message{
+        text-align: left;
+        color: #990000;
+        padding: 20px 0;
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  feedback end                                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                                          */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 800px){
+
+    #feedback-holder{
+        form{
+            width: 90%;
+            max-width: 90%;
+        }
+    }
+
+}
+@media only screen and(max-width: 640px){
+
+    #page{
+        height: auto;
+        background: url(../images/feedback-bg.jpg) no-repeat center center;
+        background-size: cover;
+    }
+    #content,
+    .outer{
+        height: auto;
+        min-height: auto;
+    }
+    .outer{ position: relative; }
+    .inner{
+        padding: 20px;
+        background: transparent;
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    #feedback-holder{
+        h1{
+            font-size: 1.25em;
+            padding: 80px 20px 0;
+        }
+        p{
+            padding: 0 20px;
+        }
+        form{
+            width: 100%;
+            max-width: 100%;
+            margin: 0 0 40px 0;
+            background: @baseCream;
+            border-radius: 3px;
+            overflow: hidden;
+            button[type="submit"]{
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

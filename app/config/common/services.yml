@@ -1,0 +1,113 @@
+# app/config/common/services.yml
+services:
+    # Twig
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    # Event listeners
+
+    app.listener.fallback.ie:
+        class: AppBundle\EventListener\Fallback\IeFallbackListener
+        calls:
+            - [setIeFallbackController, [ "@app.ie_fallback_controller" ]]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Controller
+
+    app.ie_fallback_controller:
+        class: AppBundle\Controller\Fallback\IeFallbackController
+        calls:
+            - [setTemplating, [ "@templating" ]]
+
+    # Voters
+
+    app.voter_book:
+        class:  AppBundle\Security\Authorization\Voter\BookVoter
+        public: false
+        tags:
+            - { name: security.voter }
+
+    app.voter_story:
+        class:  AppBundle\Security\Authorization\Voter\StoryVoter
+        public: false
+        tags:
+            - { name: security.voter }
+
+    # Services
+
+    app.page_init_listener:
+        class:     AppBundle\EventListener\PageInitListener
+        scope:     request
+        arguments: [ "@request", "@app.metadata", "@app.payment.liq_pay_processing" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    app.order_setter.listener:
+        class: AppBundle\EventListener\OrderSetter
+        arguments: [ "@session" ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
+    app.metadata:
+        class: AppBundle\Service\Metadata
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    app.mailer_shortcut:
+        class: AppBundle\Service\MailerShortcut
+        arguments:
+            - "@mailer"
+
+    app.pagination_bar:
+        class: AppBundle\Service\PaginationBar
+
+    app.views_counter:
+        class: AppBundle\Service\ViewsCounter
+        arguments:
+            - "@session"
+
+    app.bookmark:
+        class: AppBundle\Service\Bookmark
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    app.payment.liq_pay:
+        class: LiqPay
+        arguments:
+            - "%liq_pay_key_public%"
+            - "%liq_pay_key_private%"
+
+    app.payment.liq_pay_processing:
+        class: AppBundle\Service\Payment\LiqPayProcessing
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@app.payment.liq_pay"
+        calls:
+            - [setLiqPayKeys, ["%liq_pay_key_public%", "%liq_pay_key_private%"]]
+
+    app.cart.book.manager:
+        class: AppBundle\Service\Cart\BookCartManager
+        calls:
+            - [setSession, [ "@session" ]]
+            - [setManager, [ "@doctrine.orm.entity_manager" ]]
+
+    app.security.authentication_handler:
+        class: AppBundle\Service\Security\CustomAuthenticationHandler
+        arguments:
+            - "@router"
+            - "@security.authorization_checker"
+
+    app.security.reader_security_handler:
+        class: AppBundle\Service\Security\ReaderSecurityHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.password_encoder"

@@ -1,0 +1,8 @@
+{# src/Application/Sonata/UserBundle/Resources/views/Admin/Form/edit.html.twig #}
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% use 'ApplicationSonataUserBundle:Admin/Form:base_edit_form.html.twig' with form as parentForm %}
+
+{% block form %}
+    {{ block('parentForm') }}
+{% endblock %}

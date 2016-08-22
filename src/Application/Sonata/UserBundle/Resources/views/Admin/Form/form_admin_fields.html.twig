@@ -1,0 +1,6 @@
+{# src/Application/Sonata/UserBundle/Resources/views/Admin/Form/form_admin_fields.html.twig #}
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block sonata_admin_orm_one_to_many_widget %}
+    {% include 'ApplicationSonataUserBundle:Admin/Form:edit_orm_one_to_many.html.twig' %}
+{% endblock %}

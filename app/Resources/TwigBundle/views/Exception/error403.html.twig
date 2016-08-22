@@ -1,0 +1,11 @@
+{# app/Resources/TwigBundle/views/Exception/error403.html.twig #}
+{% extends 'TwigBundle::errorLayout.html.twig' %}
+
+{% block exception %}
+    <span class="rotated">{{ 'error.403.rotated'|trans({}, "messages", locale) }}</span>
+    <h2>{{ 'error.common.headline'|trans({}, "messages", locale) }}</h2>
+    <p>{{ 'error.403.subheadline'|trans({}, "messages", locale) }}</p>
+    <div class="circle">
+        <span>403</span>
+    </div>
+{% endblock %}

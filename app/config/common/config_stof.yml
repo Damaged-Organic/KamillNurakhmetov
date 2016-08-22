@@ -1,0 +1,25 @@
+# app/config/common/config_stof.yml
+stof_doctrine_extensions:
+    default_locale:       "%locale%"
+    translation_fallback: true
+    uploadable:
+        default_file_path:       %kernel.root_dir%/../www/uploads
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+    orm:
+        default:
+            translatable: true
+            sluggable:    true
+            uploadable:   true
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    gedmo_translatable:
+                        type:      annotation
+                        prefix:    Gedmo\Translatable\Entity
+                        dir:       "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
+                        alias:     GedmoTranslatable
+                        is_bundle: false

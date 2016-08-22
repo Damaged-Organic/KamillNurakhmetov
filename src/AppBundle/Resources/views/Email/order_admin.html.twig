@@ -1,0 +1,76 @@
+{# src/AppBundle/Resources/views/Email/order_admin.html.twig #}
+<h1>{{ 'order.admin.headline'|trans({}, "emails") }}</h1>
+<p>
+    <b>{{ 'order.admin.status'|trans({}, "emails") }}:</b>
+    {{ (order.orderStatus ~ '.paper')|trans({}, "liq_pay_responses") }}.
+</p>
+<p>
+    <b>{{ 'order.admin.order'|trans({}, "emails") }}:</b>
+    {{ order.itemDescription }}.
+</p>
+<p>
+    <b>{{ 'order.admin.total_price'|trans({}, "emails") }}:</b>
+    {{ order.itemPrice }} {{ order.itemCurrency }}
+</p>
+
+<p>
+    <b>{{ 'order.admin.order_data.title'|trans({}, "emails") }}:</b>
+</p>
+
+<table>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.pseudonym'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.pseudonym ) ?: '-' }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.email'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.email ) ?: '-' }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.phone'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.phone ) ?: '-' }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.delivery_service'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.deliveryService ) ?: '-' }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.delivery_city'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.deliveryCity ) ?: '-' }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ 'order.admin.order_data.delivery_office'|trans({}, "emails") }}
+        </td>
+        <td>
+            {{ ( order.orderBookCredentials.deliveryOffice ) ?: '-' }}
+        </td>
+    </tr>
+</table>
+
+<p>
+    <small>{{ 'order.at_date'|trans({}, "emails") }} {{ order.orderDateTime|date("H:i, d-m-Y") }}.</small>
+</p>
+<p>
+    <small>{{ 'default.bottomline'|trans({}, "emails") }}</small>
+</p>

@@ -1,0 +1,156 @@
+{# src/AppBundle/Resources/views/Form/Order/order.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        <p class="error-message">{{ message.error }}</p>
+    {% endif %}
+    {% if message.notification is defined %}
+        <p class="notification-message">{{ message.notification }}</p>
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('order_send', { '_locale': app.request.locale }) }}" method="POST" id="order-form">
+
+    <div class="field-holder">
+
+        {% set pseudonymFilled = ( app.user.pseudonym ) ? 'filled': null %}
+
+        {{ form_widget(form.pseudonym, {
+            'id': "order-pseudonym",
+            'attr': {
+                'class': "toggle-input" ~ " " ~ pseudonymFilled,
+                'data-rule-required': "true", 'data-msg-required': 'reader.pseudonym.not_blank'|trans({}, "validators"),
+                'data-rule-minlength': "2", 'data-msg-minlength': 'reader.pseudonym.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "255", 'data-msg-maxlength': 'reader.pseudonym.length.max'|trans({}, "validators"),
+                'value': app.user.pseudonym
+            }
+        }) }}
+
+        {% block form_label_reader_pseudonym %}
+            {{ block('base_form_label') }}
+            <label for="order-pseudonym">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ form.pseudonym.vars.label|trans({}, 'forms') }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    <div class="field-holder">
+
+        {{ form_widget(form.email, {
+            'id': "order-email",
+            'attr': {
+                'class': "toggle-input filled",
+                'data-rule-required': "true", 'data-msg-required': 'reader.email.not_blank'|trans({}, "validators"),
+                'data-rule-email': "true", 'data-msg-email': 'reader.email.valid'|trans({}, "validators"),
+                'value': app.user.email
+            }
+        }) }}
+
+        {% block form_label_reader_email %}
+            {{ block('base_form_label') }}
+            <label for="order-email">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ form.email.vars.label|trans({}, 'forms') }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    <div class="field-holder">
+
+        {{ form_widget(form.phone, {
+            'id': "order-phone",
+            'attr': {
+                'class': "toggle-input",
+                'data-mask': "+38 (099) 999-99-99"
+            }
+        }) }}
+
+        {% block form_label_reader_phone %}
+            {{ block('base_form_label') }}
+            <label for="order-phone">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ form.phone.vars.label|trans({}, 'forms') }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    <div class="field-holder several">
+        <p>{{ form.deliveryService.vars.label|trans({}, 'forms') }}</p>
+        <div class="field-holder">
+            {{ form_widget(form.deliveryService.0, {
+                'attr': {
+                    'checked': 'true'
+                }
+            }) }}
+            <label for="{{ form.deliveryService.0.vars.id }}">
+                <span class="radio">{{ form.deliveryService.0.vars.label }}</span>
+            </label>
+        </div>
+        <div class="field-holder">
+            {{ form_widget(form.deliveryService.1) }}
+            <label for="{{ form.deliveryService.1.vars.id }}">
+                <span class="radio">{{ form.deliveryService.1.vars.label }}</span>
+            </label>
+        </div>
+    </div>
+
+    <p>{{ 'order.delivery.service'|trans }}</p>
+
+    <div class="field-holder">
+
+        {{ form_widget(form.deliveryCity, {
+            'id': "order-delivery-city",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'reader.delivery.city.not_blank'|trans({}, "validators"),
+                'data-rule-minlength': "2", 'data-msg-minlength': 'reader.delivery.city.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "255", 'data-msg-maxlength': 'reader.delivery.city.length.max'|trans({}, "validators")
+            }
+        }) }}
+
+        {% block form_label_reader_delivery_city %}
+            {{ block('base_form_label') }}
+            <label for="order-delivery-city">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ form.deliveryCity.vars.label|trans({}, 'forms') }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    <div class="field-holder">
+
+        {{ form_widget(form.deliveryOffice, {
+            'id': "order-delivery-office",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-minlength': "2", 'data-msg-minlength': 'reader.delivery.office.length.min'|trans({}, "validators"),
+                'data-rule-maxlength': "255", 'data-msg-maxlength': 'reader.delivery.office.length.max'|trans({}, "validators")
+            }
+        }) }}
+
+        {% block form_label_reader_delivery_office %}
+            {{ block('base_form_label') }}
+            <label for="order-delivery-office">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ form.deliveryOffice.vars.label|trans({}, 'forms') }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <div class="total-price-holder">
+        <p>Общая стоимость <span id="total-price">{{ totalPrice }}</span> {{ app.user.preferredCurrency }}</p>
+    </div>
+
+    <button type="submit">
+        <span>{{ 'reader.delivery.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

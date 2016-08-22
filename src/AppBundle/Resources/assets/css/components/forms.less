@@ -1,0 +1,276 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  forms start                               */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+form{
+    display: block;
+    width: 100%;
+}
+
+p.error-message{
+    color: @errorColor;
+    padding: 20px !important;
+    text-align: center !important;
+}
+
+.field-holder{
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+.placeholder{
+    font-family: @openSans;
+    font-size: 1em;
+    color: @darkGrey;
+}
+::-webkit-input-placeholder{ .placeholder }
+::-moz-placeholder{ .placeholder }
+:-moz-placeholder{ .placeholder }
+:-ms-input-placeholder{ .placeholder }
+
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=url],
+input[type=password]{
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: @openSans;
+    font-weight: normal;
+    font-size: .875em;
+    text-indent: 10px;
+    background: transparent;
+    &.toggle-input{
+        height: 40px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: @darkGrey;
+        .transition;
+        opacity: 0;
+    }
+    & + label,
+    & + label.error + label{
+        display: block;
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+        overflow: hidden;
+        & > .icon-holder{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            .transition;
+            transform: translateX(0%);
+            .icon{
+                display: block;
+                width: 18px;
+                height: 18px;
+                position: absolute;
+                right: 0;
+                bottom: 2px;
+                color: @darkGrey;
+                font-size: 1.125em;
+                .transition;
+                transform-origin: 0% 100%;
+                transform: rotate(0deg);
+            }
+        }
+        & > .title{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            line-height: 40px;
+            font-size: .875em;
+            font-weight: bold;
+            color: @darkGrey;
+            .transition;
+            transform: translateX(10px);
+        }
+        &:after{
+            display: block;
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: @darkGrey;
+            content: "";
+            .transition;
+            transform: translateX(95%) translateY(0);
+            overflow: hidden;
+        }
+    }
+    &:hover + label,
+    &:hover + label.error + label{
+        .icon{
+            transform: rotate(-90deg);
+        }
+    }
+    &:focus,
+    &.filled{
+        opacity: 1;
+        & + label,
+        & + label.error + label{
+            .icon-holder{
+                transform: translateX(-100%);
+                .icon{
+                    transform: rotate(-90deg);
+                    color: @rustGreen;
+                }
+            }
+            .title{
+                font-size: .75em;
+                color: @rustGreen;
+                transform: translateX(0px) translateY(-20px);
+            }
+            &:after{
+                transform: translateX(0%);
+                background: @rustGreen;
+            }
+        }
+    }
+    & + label.error{
+        display: inline-block;
+        width: auto;
+        height: auto;
+        left: auto;
+        right: 0;
+        &:after{
+            display: none;
+        }
+    }
+}
+label.error{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    font-family: @openSans;
+    font-size: .75em;
+    text-align: left;
+    color: @errorColor;
+    padding: 5px 10px 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    line-height: 20px;
+    z-index: 5;
+}
+
+
+input[type=radio]{
+    display: none;
+    & + label{
+        display: block;
+        width: 89.473684%;
+        height: 40px;
+        margin: 0 5.263158% 20px;
+        .radio{
+            display: block;
+            width: 100%;
+            max-width: 140px;
+            height: 100%;
+            float: left;
+            border-radius: 3px;
+            border: 2px solid @baseCream;
+            background: transparent;
+            font-family: @openSans;
+            font-weight: normal;
+            font-size: .875em;
+            line-height: 40px;
+            color: @baseCream;
+            text-transform: uppercase;
+            text-align: center;
+            .borderBox;
+            .transition;
+            cursor: pointer;
+            &:hover{
+                border: 2px solid @rustGreen;
+                color: @rustGreen;
+            }
+        }
+        .price{
+            display: block;
+            width: ~"calc(100% - 140px)";
+            float: left;
+            font-size: 1em;
+            color: @baseCream;
+            text-align: right;
+            line-height: 40px;
+        }
+    }
+    &:focus + label .radio,
+    &:checked + label .radio{
+        border: 2px solid @rustGreen;
+        color: @rustGreen;
+    }
+}
+
+
+textarea{
+    display: block;
+    width: 100%;
+    min-height: 80px;
+    max-height: 80px;
+    border: 1px solid @darkBrown;
+    background: @baseCream;
+    box-shadow: inset 1px 1px 3px fade(@darkGrey, 50%);
+    border-radius: 3px;
+    .borderBox;
+    resize: none;
+    font-family: @openSans;
+    font-size: .875em;
+    color: @darkGrey;
+    padding: 10px;
+    .transition;
+    &:hover,
+    &:focus{
+        border: 1px solid @rustGreen;
+        box-shadow: inset 1px 1px 3px fade(@rustGreen, 50%);
+    }
+}
+input[type=hidden]{
+    display: none;
+}
+button[type=submit]{
+    display: block;
+    width: 180px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    & > span{
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: @darkBrown;
+        border-radius: 3px;
+        box-shadow: 1px 2px 3px 0 fade(@darkGrey, 50%);
+        border-bottom: 3px solid darken(@darkBrown, 10%);
+        line-height: 50px;
+        font-size: .875em;
+        text-transform: uppercase;
+        color: @baseCream;
+        transition: all .5s @easing;
+        box-sizing: border-box;
+        overflow: hidden;
+        &:hover{
+            background: @rustGreen;
+            box-shadow: 1px 1px 3px 0 lighten(@darkGrey, 10%);
+            border-bottom: 3px solid @rustGreen;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  forms end                                 */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

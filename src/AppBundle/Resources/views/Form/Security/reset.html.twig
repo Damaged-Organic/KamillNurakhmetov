@@ -1,0 +1,39 @@
+{# src/AppBundle/Resources/views/Form/Security/reset.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        <p class="error-message">{{ message.error }}</p>
+    {% endif %}
+    {% if message.notification is defined %}
+        <p class="notification-message">{{ message.notification }}</p>
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('reset', { '_locale': app.request.locale }) }}" method="POST" id="reset-password-form">
+    <div class="field-holder">
+
+        {{ form_widget(form.reader.email, {
+            'id': "reset-password-email",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'reader.email.not_blank'|trans({}, "validators"),
+                'data-rule-email': "true", 'data-msg-email': 'reader.email.valid'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_reset_email %}
+            {{ block('base_form_label') }}
+            <label for="reset-password-email">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'reader.email.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit">
+        <span>{{ 'reset.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

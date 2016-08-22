@@ -1,0 +1,12 @@
+{# src/AppBundle/Resources/views/Form/reviewStory.html.twig #}
+{% extends 'AppBundle:Form:review.html.twig' %}
+
+{% block dynamic_path %}
+    {{ path('review_story_send', { '_locale': app.request.locale }) }}
+{% endblock %}
+
+{% block dynamic_fields %}
+    {{ form_widget(form.storyId, {
+        'id': "review-storie-id"
+    }) }}
+{% endblock %}

@@ -1,0 +1,19 @@
+{# src/AppBundle/Resources/views/Email/order.html.twig #}
+<h1>{{ 'order.client.headline'|trans({}, "emails") }}</h1>
+<p>
+    {{ (order.orderStatus ~ '.paper')|trans({}, "liq_pay_responses") }}.
+</p>
+<p>
+    <b>{{ 'order.client.order'|trans({}, "emails") }}:</b>
+    {{ order.itemDescription }}.
+</p>
+<p>
+    <b>{{ 'order.client.total_price'|trans({}, "emails") }}:</b>
+    {{ order.itemPrice }} {{ order.itemCurrency }}
+</p>
+<p>
+    <small>{{ 'order.at_date'|trans({}, "emails") }} {{ order.orderDateTime|date("H:i, d-m-Y") }}.</small>
+</p>
+<p>
+    <small>{{ 'default.bottomline'|trans({}, "emails") }}</small>
+</p>

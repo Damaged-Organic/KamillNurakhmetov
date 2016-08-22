@@ -1,0 +1,232 @@
+@import "components/common.less";
+@import "components/forms.less";
+@import "components/authorization.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  layout end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  book view start                           */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.book-item-holder{
+    margin: 40px auto;
+    overflow: hidden;
+    .inner{
+        max-width: 1200px;
+        margin: 0 auto;
+        background: @darkGrey;
+        border-radius: 3px;
+        overflow: hidden;
+        .book-cover-holder{
+            width: 30%;
+            height: auto;
+            padding: 20px 0 20px 20px;
+            float: left;
+            box-sizing: border-box;
+        }
+        .book-info{
+            width: 70%;
+            float: left;
+            overflow: hidden;
+            h1{
+                font-size: 1.5em;
+                padding: 20px 20px 10px;
+                color: @baseCream;
+                text-align: left;
+            }
+            time{
+                text-align: left;
+                padding: 0 20px;
+                color: @rustGreen;
+            }
+            ul{
+                display: block;
+                width: 100%;
+                margin: 30px 0 20px;
+                overflow: hidden;
+                li{
+                    display: block;
+                    padding: 10px 20px 0;
+                    box-sizing: border-box;
+                    p{
+                        text-align: left;
+                        color: @baseCream;
+                        span{
+                            margin-right: 10px;
+                            color: @darkBrown;
+                        }
+                    }
+                }
+            }
+            & > p{
+                padding: 20px 20px 0;
+                color: @baseCream;
+                text-align: left;
+                .price{
+                    color: @rustGreen;
+                    text-transform: uppercase;
+                }
+            }
+            .btn-price{
+                margin: 20px;
+            }
+            .btn-small{
+                margin: 40px 0 0 20px;
+                a{
+                    color: @baseCream;
+                }
+            }
+            & > a{
+                display: block;
+                text-align: left;
+                color: @baseCream;
+                padding: 20px 20px 0px;
+                transition: all .6s @easing 0s;
+                &:hover{
+                    color: @rustGreen;
+                }
+            }
+            .available{
+                display: block;
+                font-size: 1em;
+                color: @baseCream;
+                text-align: left;
+                padding: 0 20px 20px 20px;
+                &.no{
+                    color: lighten(@darkGrey, 40%);
+                }
+            }
+        }
+    }
+    .reviews-holder{
+        max-width: 1200px;
+        margin: 0 auto;
+        h2{
+            font-size: 1.25em;
+            text-align: left;
+            font-weight: 400;
+            padding: 40px 0 20px;
+            border-bottom: 1px solid @darkGrey;
+        }
+        .empty{
+            padding: 20px 20px 0;
+            font-size: 1.125em;
+            text-align: left;
+            color: fade(@darkGrey, 40%);
+        }
+        .comments-holder{
+            padding: 0 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+            .comment{
+                padding: 20px 0;
+                border-bottom: 1px solid lighten(@darkGrey, 50%);
+                h3{
+                    text-align: left;
+                    padding-bottom: 10px;
+                    & > span{
+                        color: @rustGreen;
+                        margin-right: 20px;
+                    }
+                }
+                time, p{
+                    text-align: left;
+                }
+                time{
+                    color: @darkBrown;
+                }
+                p{
+                    padding-top: 20px;
+                }
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  book view end                             */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  review start                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#review-form{
+    margin: 20px 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    .field-holder{
+        height: auto;
+        margin-bottom: 20px;
+    }
+    &.hide{
+        display: none;
+    }
+}
+
+#response-holder{
+    h3{
+        text-align: left;
+        padding: 20px;
+        &.success{
+            color: @successColor;
+        }
+        &.error{
+            color: @errorColor;
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  review end                                */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive start                            */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @laptop{
+
+    .book-item-holder{
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+}
+
+@media only screen and @mobileL{
+
+    .book-item-holder{
+        .inner{
+            .book-cover-holder,
+            .book-info{
+                width: 100%;
+                float: none;
+            }
+            .book-cover-holder{
+                padding: 20px 20px 0;
+            }
+        }
+    }
+
+}
+
+@media only screen and @mobileS{
+
+    .book-item-holder{
+        .inner{
+            .btn-price{
+                width: 240px;
+                a{
+                    font-size: .75em;
+                    .label{ width: 140px; }
+                    .price{ width: 100px; }
+                }
+            }
+        }
+    }
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*  adaptive end                              */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

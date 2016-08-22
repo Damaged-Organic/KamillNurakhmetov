@@ -1,0 +1,36 @@
+{# src/AppBundle/Resources/views/layout.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block favicons %}
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/app/images/favicons/ms/144x144.png') }}?v2">
+    <meta name="msapplication-TileColor" content="#333233">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/57x57.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/60x60.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/72x72.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/76x76.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/114x114.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/120x120.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/144x144.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/152x152.png') }}?v2">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/app/images/favicons/apple/180x180.png') }}?v2">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/16x16.png') }}?v2">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/32x32.png') }}?v2">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicons/96x96.png') }}?v2">
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block google_analytics %}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-49353699-12', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+{% endblock %}

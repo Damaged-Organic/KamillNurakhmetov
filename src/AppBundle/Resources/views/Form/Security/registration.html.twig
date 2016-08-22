@@ -1,0 +1,101 @@
+{# src/AppBundle/Resources/views/Form/Security/registration.html.twig #}
+{% form_theme form _self %}
+
+{% if message %}
+    {% if message.error is defined %}
+        <p class="error-message">{{ message.error }}</p>
+    {% endif %}
+    {% if message.notification is defined %}
+        <p class="notification-message">{{ message.notification }}</p>
+    {% endif %}
+{% endif %}
+
+<form action="{{ path('registration', { '_locale': app.request.locale }) }}" method="POST" id="registration-form">
+    <div class="field-holder">
+
+        {{ form_widget(form.reader.email, {
+            'id': "registration-email",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'reader.email.not_blank'|trans({}, "validators"),
+                'data-rule-email': "true", 'data-msg-email': 'reader.email.valid'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_email %}
+            {{ block('base_form_label') }}
+            <label for="registration-email">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'reader.email.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+
+    </div>
+    <div class="field-holder">
+        {{ form_widget(form.reader.password.password, {
+            'id': "registration-password",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'reader.password.not_blank'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_password %}
+            {{ block('base_form_label') }}
+            <label for="registration-password">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'reader.password.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+    </div>
+    <div class="field-holder">
+        {{ form_widget(form.reader.password.confirm, {
+            'id': "registration-confirm-password",
+            'attr': {
+                'class': "toggle-input",
+                'data-rule-required': "true", 'data-msg-required': 'reader.password.not_confirmed'|trans({}, "validators")
+            }
+        }) }}
+        {% block form_label_password_confirm %}
+            {{ block('base_form_label') }}
+            <label for="registration-confirm-password">
+                <span class="icon-holder"><span class="icon fa fa-pencil"></span></span>
+                <span class="title">{{ 'reader.password_repeated.label'|trans({}, "forms") }}</span>
+            </label>
+        {% endblock %}
+    </div>
+    <div class="row">
+        <p>{{ 'reader.preferred_currency.label'|trans({}, "forms") }}</p>
+        <div class="field-holder">
+            {{ form_widget(form.reader.preferredCurrency.0, {
+                'id': "registration-currency-uah"
+            }) }}
+            {% block radio_reader_label_preferred_currency_uah %}
+                {{ block('base_form_label') }}
+                <label for="registration-currency-uah"><span class="radio">UAH</span></label>
+            {% endblock %}
+        </div>
+        <div class="field-holder">
+            {{ form_widget(form.reader.preferredCurrency.1, {
+                'id': "registration-currency-usd"
+            }) }}
+            {% block radio_reader_label_preferred_currency_usd %}
+                {{ block('base_form_label') }}
+                <label for="registration-currency-usd"><span class="radio">USD</span></label>
+            {% endblock %}
+        </div>
+        <div class="field-holder">
+            {{ form_widget(form.reader.preferredCurrency.2, {
+                'id': "registration-currency-rub"
+            }) }}
+            {% block radio_reader_label_preferred_currency_rub %}
+                {{ block('base_form_label') }}
+                <label for="registration-currency-rub"><span class="radio">RUB</span></label>
+            {% endblock %}
+        </div>
+    </div>
+
+    {{ form_widget(form._token) }}
+
+    <button type="submit">
+        <span>{{ 'register.submit'|trans({}, "forms") }}</span>
+    </button>
+</form>

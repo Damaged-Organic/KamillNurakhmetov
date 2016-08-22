@@ -1,0 +1,455 @@
+@import "components/common.less";
+@import "components/forms.less";
+@import "components/reviews.less";
+@import "components/authorization.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#content{
+	.text-holder{
+	  width: 100%;
+	  max-width: 1200px;
+	  margin: 60px auto 0;
+	  height: auto;
+	  overflow: hidden;
+      h1{
+          font-size: 2.5em;
+          padding: 0 20px 10px;
+          font-weight: 300;
+      }
+	  p{
+	 	 color: @darkGrey;
+	 	 text-align: center;
+	 	 padding: 0 0 20px;
+	  }
+	}
+}
+.grid{
+	max-width: 1160px;
+	margin: 0 auto 20px;
+	overflow: hidden;
+	.col{
+		width: 32.183908%;
+		float: left;
+		position: relative;
+		padding-top: 32.183908%;
+		margin-bottom: 20px;
+		border-radius: 3px;
+		box-shadow: 1px 1px 3px fade(@darkGrey, 50%);
+		overflow: hidden;
+		&:nth-child(3n+2){
+			margin: 0 1.724138% 20px;
+		}
+		.inner{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: @darkGrey;
+			overflow: hidden;
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	sort holder start					      */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.sort-panel-holder{
+	width: 100%;
+	max-width: 1160px;
+	height: 60px;
+	margin: 0 auto;
+	.sort-panel{
+		width: ~"calc(100% - 350px)";
+		float: left;
+		ul{
+			display: block;
+			width: 100%;
+			text-align: left;
+		}
+		li{
+			display: inline-block;
+			margin-right: 20px;
+			white-space: -1;
+			overflow: hidden;
+			& > a{
+				display: block;
+				line-height: 40px;
+				color: @darkGrey;
+				.transition;
+				& > span{
+					margin-right: 5px;
+				}
+				&:hover{
+					color: @rustGreen;
+				}
+				&.touch-hover-end{
+					color: @darkGrey;
+				}
+				&.touch-hover-start{
+					color: @rustGreen;
+				}
+			}
+            &.active a{
+                color: @rustGreen;
+            }
+		}
+	}
+	.btn-small.subscribe{
+		float: right;
+		margin: 0;
+		height: 40px;
+		& > a{
+			background: @rustGreen;
+			box-shadow: 1px 1px 3px fade(@darkGrey, 50%);
+			line-height: 40px;
+            border-bottom: 3px solid @rustGreen;
+			&:hover{
+				background: @darkGrey;
+				color: @rustGreen;
+                border-bottom: 3px solid @darkGrey;
+			}
+		}
+		&.touch-hover-end{
+			& > a{
+				background: @rustGreen;
+				color: @baseCream;
+			}
+		}
+		&.touch-hover-start{
+			& > a{
+				background: @darkGrey;
+				color: @rustGreen;
+			}
+		}
+	}
+	.subscribed-holder{
+		width: 350px;
+		height: 40px;
+		float: right;
+		a{
+			display: block;
+			width: 100%;
+			line-height: 40px;
+			text-align: right;
+			color: @rustGreen;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	sort holder start						  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	stories start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.stories-list-holder{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    .filters-holder{
+        width: 200px;
+        float: left;
+        margin-right: 20px;
+        overflow: hidden;
+        ul, li, li > a{
+            display: block;
+            overflow: hidden;
+        }
+        li{
+            margin-bottom: 10px;
+            a{
+                width: 100%;
+                background: @darkBrown;
+                text-align: center;
+                line-height: 50px;
+                color: @baseCream;
+                border-radius: 3px;
+                transition: all .5s ease;
+            }
+            & > a:hover,
+            &.active a{
+                background: @rustGreen;
+            }
+        }
+    }
+}
+#stories-list{
+    width: ~"calc(100% - 220px)";
+    float: left;
+	.stories-holder{
+        width: 48.97959183673469%;
+        padding-top: 48.97959183673469%;
+        margin-left: 2.040816326530612%;
+        &:nth-child(3n+2){
+            margin: 0 0 20px 2.040816326530612%;
+        }
+        &:nth-child(odd){
+            margin-left: 0;
+        }
+		.stats-panel{
+			width: 100%;
+			margin: 10px 10px 0;
+			.item{
+				display: block;
+				width: 100%;
+				text-align: left;
+				color: @baseCream;
+				font-size: 0.875em;
+				& > span{
+					margin-right: 5px;
+					color: @darkBrown;
+				}
+			}
+			& > time{
+				display: block;
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				color: @baseCream;
+				font-size: .875em;
+			}
+		}
+		.centered{
+			width: 100%;
+			height: auto;
+			position: absolute;
+			.centered(0, 50%, 0, -50%);
+			overflow: hidden;
+			.story-title{
+                display: block;
+				color: @baseCream;
+				padding: 20px 20px 0;
+			}
+			.ornament{
+				display: block;
+				width: 60px;
+				height: 40px;
+				margin: 20px auto;
+				background: url(../images/ornament-stories.png) no-repeat 50% 50%;
+				background-size: 60px auto;
+				overflow: hidden;
+			}
+            & > p{
+                padding: 10px 10%;
+                color: @baseCream;
+            }
+            .btn-small{
+                a{
+                    position: relative;
+                    &:before{
+                        display: none;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+			.review-button{
+				display: block;
+				text-align: center;
+				color: @baseCream;
+				margin-top: 10px;
+				.transition;
+				&:hover{
+					color: @rustGreen;
+				}
+			}
+
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	stories end												*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	pagination start										*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.pagination-holder{
+	width: 100%;
+	max-width: 1160px;
+	margin: 40px auto 20px;
+	overflow: hidden;
+	ul{
+		display: block;
+		text-align: center;
+		li{
+			display: inline-block;
+			width: 40px;
+			height: 40px;
+			white-space: -1;
+			margin: 0 5px;
+			& > a{
+				display: block;
+				width: 100%;
+				height: 100%;
+				background: @darkBrown;
+				border-radius: 3px;
+				line-height: 40px;
+				color: @baseCream;
+				box-shadow: 1px 1px 3px fade(@darkGrey, 50%);
+				.transition;
+				overflow: hidden;
+				&:hover{
+					background: @rustGreen;
+				}
+			}
+			&.active a{
+				background: @rustGreen;
+			}
+			&.touch-hover-end a{
+				background: @darkBrown;
+			}
+			&.touch-hover-start a{
+				background: @rustGreen;
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	pagination end											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and(max-width: 960px){
+
+    .stories-list-holder{
+        .filters-holder{
+            width: 100%;
+            margin-bottom: 20px;
+            li{
+                display: block;
+                width: 23%;
+                float: left;
+                margin: 0 1%;
+            }
+        }
+    }
+
+    #stories-list{
+        width: 100%;
+        float: none;
+        padding: 0 1%;
+        box-sizing: border-box;
+    }
+
+    .sort-panel-holder{
+		width: 98%;
+		max-width: auto;
+	}
+
+	.pagination-holder{
+		width: 98%;
+		max-width: auto;
+	}
+
+}
+
+@media only screen and(max-width: 800px){
+
+    #content{
+        h1{
+            padding-top: 0;
+        }
+    }
+
+    .sort-panel-holder{
+        display: none;
+    }
+
+}
+
+@media only screen and(max-width: 640px) and(orientation: portrait){
+
+    .stories-list-holder{
+        .filters-holder{
+            width: 100%;
+            margin-bottom: 10px;
+            li{
+                display: block;
+                width: 48%;
+                float: left;
+                margin: 0 1% 10px;
+            }
+        }
+    }
+
+    #stories-list{
+        .grid{
+    		max-width: auto;
+
+    	}
+        .stories-holder{
+            width: 100%;
+            padding-top: 100%;
+            margin: 0 0% 20px;
+            &:nth-child(3n+2),
+            &:nth-child(odd){
+                margin: 0 0% 20px;
+            }
+        }
+    }
+
+}
+@media only screen and(max-width: 400px) and(orientation: portrait){
+
+	.pagination-holder{
+		margin-bottom: 10px;
+		ul{
+			li{
+				display: none;
+				&:first-child,
+				&:last-child{
+					display: inline-block;
+				}
+			}
+		}
+	}
+
+}
+@media only screen and(max-width: 360px) and(orientation: portrait){
+
+	#content,
+	#header,
+	#footer{
+		min-width: 320px;
+	}
+
+	.sort-panel-holder{
+		height: 40px;
+		margin-top: 40px;
+		.sort-panel{
+			width: 100%;
+			float: left;
+			li{
+				display: none;
+				& > a{
+					line-height: 40px;
+				}
+				&:first-child{
+					display: block;
+				}
+			}
+		}
+		.btn-small.subscribe{
+			width: 140px;
+		}
+	}
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive end											*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

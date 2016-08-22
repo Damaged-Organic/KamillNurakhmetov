@@ -1,0 +1,500 @@
+@import "settings.less";
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#page,
+#content,
+#header,
+#menu,
+#footer,
+.outer,
+.inner,
+.grid,
+.row,
+.col{
+	width: 100%;
+	height: auto;
+}
+#page{
+	height: auto;
+	min-height: 100%;
+	background: @baseCream;
+}
+#content.sticky-footer{
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 60px;
+}
+html, body{
+	overflow: auto;
+	&.no-scroll{
+		overflow: hidden;
+	}
+}
+p.no-content{
+	padding: 80px 40px;
+	text-align: center;
+	color: @rustGreen;
+}
+.seo-text{
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto 0px;
+    padding-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    .inner{
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+        &:after{
+            display: block;
+            width: 100%;
+            height: 80px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, @baseCream, transparent);
+            content: "";
+            overflow: hidden;
+        }
+    }
+    p{
+        padding: 0 20px;
+        text-align: left;
+        color: @darkGrey;
+    }
+    #expand-seo-text{
+        display: block;
+        width: 200px;
+        float: right;
+        padding-right: 20px;
+        color: @rustGreen;
+        text-align: right;
+        cursor: pointer;
+    }
+    &.active{
+        .inner{
+            height: auto;
+            &:after{
+                display: none;
+            }
+        }
+    }
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	layout end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	header start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#header{
+	width: 100%;
+	height: auto;
+	position: relative;
+	z-index: 20;
+	background: url("../images/ornament-left.png") no-repeat 1.041666666666667% 60px,
+				url("../images/ornament-right.png") no-repeat 98.95833333333333% 60px;
+	background-size: 100px auto, 100px auto;
+	.logo{
+		width: 60px;
+		height: 60px;
+		margin: 20px auto 10px;
+		overflow: hidden;
+	}
+}
+#authorization-widget-holder{
+	width: 100%;
+	height: 40px;
+	background: @darkGrey;
+	.authorization{
+		display: block;
+		width: 100%;
+		height: 100%;
+		text-align: right;
+		overflow: hidden;
+		li{
+			display: inline-block;
+			vertical-align: top;
+			height: 100%;
+			white-space: -1;
+			margin-left: -4px;
+			border-right: 1px solid @baseCream;
+			box-sizing: border-box;
+			&:first-child{
+				margin-left: 0;
+			}
+			&:last-child{
+				border-right: none;
+			}
+			a{
+				display: block;
+				height: 100%;
+				color: @baseCream;
+				padding: 0 20px;
+				line-height: 40px;
+				transition: all .5s @easing 0s;
+				& > span{
+					display: inline-block;
+					vertical-align: middle;
+					color: inherit;
+					font-size: 1em;
+				}
+				& > span.fa{
+					margin-left: 10px;
+				}
+				&:hover{ color: @rustGreen; }
+			}
+			&.active{
+				a{ color: @rustGreen; }
+			}
+		}
+		&.out{ display: block; }
+		&.in{ display: none; }
+	}
+}
+#page.__logged-in{
+	#authorization-widget-holder{
+		.authorization{
+			&.out{ display: none; }
+			&.in{ display: block; }
+		}
+	}
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	header end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	menu start								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#menu{
+	width: 100%;
+	overflow: hidden;
+	ul{
+		display: block;
+		text-align: center;
+	}
+	li{
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 20px;
+		word-spacing: -1;
+		a{
+			font-weight: 300;
+			font-size: 1.125em;
+			line-height: 40px;
+			color: @darkGrey;
+			transition: all .5s @easing 0s;
+		}
+		&.touch-hover-end a{
+			color: @baseCream;
+		}
+		& > a:hover,
+	    &.active a,
+	    &.touch-hover-start a{
+		    color: @rustGreen;
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	menu end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	button start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+*[class^="btn-"]{
+	width: 220px;
+	height: 50px;
+	margin: 0 auto;
+	& > a,
+	& > span{
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		background: @darkBrown;
+		border-radius: 3px;
+		box-shadow: 1px 2px 3px 0 fade(@darkGrey, 50%);
+		line-height: 50px;
+		text-transform: uppercase;
+		color: @baseCream;
+		border-bottom: 3px solid darken(@darkBrown, 10%);
+		box-sizing: border-box;
+		transition: all .5s @easing 0s;
+		overflow: hidden;
+		&:hover{
+			background: @rustGreen;
+			box-shadow: 1px 1px 3px 0 lighten(@darkGrey, 10%);
+			border-bottom: 3px solid @rustGreen;
+		}
+	}
+	&.touch-hover-end > a,
+	&.touch-hover-end > span{
+		background: @darkBrown;
+		box-shadow: 1px 2px 3px 0 fade(@darkGrey, 50%);
+		border-bottom: 3px solid darken(@darkBrown, 10%);
+	}
+	&.touch-hover-start > a,
+	&.touch-hover-start > span{
+		background: @rustGreen;
+		box-shadow: 1px 1px 3px 0 lighten(@darkGrey, 10%);
+		border-bottom: 3px solid @rustGreen;
+	}
+}
+
+.btn-small{ width: 180px; }
+.btn-price{
+	width: 300px;
+	a{
+		display: block;
+		text-align: center;
+		& > span{
+			display: block;
+			float: left;
+			color: inherit;
+			transition: all .5s @easing 0s;
+		}
+		.label{
+			width: 200px;
+			border-right: 1px solid @lightBrown;
+			box-sizing: border-box;
+		}
+		.price{
+			width: 100px;
+		}
+		&:hover{
+			.label{
+				border-right: 1px solid lighten(@rustGreen, 10%);
+			}
+		}
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	button end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	footer start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#footer{
+	height: 40px;
+	position: relative;
+	background: @darkGrey;
+	overflow: hidden;
+	small{
+		display: block;
+		text-align: center;
+		font-size: 0.75em;
+		color: @baseCream;
+		font-weight: 300;
+		line-height: 40px;
+		a{
+			font-size: inherit;
+			font-weight: 300;
+			color: @baseCream;
+			&:hover{
+				color: @rustGreen;
+				text-decoration: underline;
+			}
+		}
+	}
+	.cheers-logo{
+		display: none;
+		width: 40px;
+		height: 40px;
+		margin: 0 auto;
+		a{
+			display: block;
+			width: 100%;
+			height: 100%;
+			& > img{
+				display: block;
+				width: 30px;
+				height: 30px;
+				margin: 5px;
+			}
+		}
+	}
+	.feedback-btn{
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		a{
+			display: block;
+			line-height: 40px;
+			font-size: 1.25em;
+			color: @baseCream;
+			.transition;
+			&:hover{
+				color: @rustGreen;
+			}
+		}
+	}
+}
+#footer.sticky{ margin-top: -40px; }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	footer end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	loader start							  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.loader-holder{
+	display: none;
+	width: 60px;
+	height: 60px;
+	.centered;
+	border-radius: 50%;
+	background: @darkBrown;
+	&:before{
+		display: block;
+		width: ~"calc(100% - 10px)";
+		height: ~"calc(100% - 10px)";
+		margin: 5px;
+		border-radius: 50%;
+		background: @baseCream;
+		content: "";
+		overflow: hidden;
+	}
+	& > span{
+		display: block;
+		width: 5px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -2.5px;
+		background: @baseCream;
+		animation: spin 1s @easingFunction 0s infinite;
+	}
+	& > span:last-child{
+		animation: spin 1s @easingFunction .3s infinite;
+	}
+	&.active{
+		display: block;
+	}
+}
+
+@keyframes spin{
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	loader end								  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	landscape fallback start				  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#orientation-landscape-holder{
+	display: none;
+	width: 100%;
+	.centered(0%, 50%, 0, -50%);
+	text-align: center;
+	overflow: hidden;
+	span.fa{
+		display: block;
+		font-size: 8em;
+		color: @rustGreen;
+	}
+	span.text{
+		font-size: 1.125em;
+		color: @darkGrey;
+	}
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	landscape fallback end					  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive common start					  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@media only screen and @tablet{
+
+	#footer{
+		height: 40px;
+		small{
+			display: none;
+		}
+		.cheers-logo{
+			display: block;
+		}
+	}
+
+}
+@media only screen and @mobileL{
+
+	#menu{
+		li{
+			margin: 0 10px;
+		}
+	}
+
+}
+
+@media only screen and @mobileM{
+
+	#header{
+		background: url("../images/ornament-left.png") no-repeat 1.041666666666667% 100px,
+					url("../images/ornament-right.png") no-repeat 98.95833333333333% 100px;
+		background-size: 100px auto, 100px auto;
+	}
+
+	#authorization-widget-holder{
+		height: 80px;
+		.authorization{
+			li{
+				height: 40px;
+				&:first-child{
+					display: block;
+					width: 100%;
+					margin-left: 0;
+					border-right: none;
+					border-bottom: 1px solid @baseCream;
+					a{
+						text-align: right;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and @mobileS{
+
+	#menu{
+		li{
+			a{
+				font-size: 1em;
+			}
+		}
+	}
+
+}
+
+@media only screen and @laptop and @landscape{
+
+	#orientation-landscape-holder{
+		display: block;
+	}
+
+	#page,
+	#footer{
+		display: none;
+	}
+
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*	adaptive common end						  */
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

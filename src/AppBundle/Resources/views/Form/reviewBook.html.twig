@@ -1,0 +1,13 @@
+{# src/AppBundle/Resources/views/Form/reviewBook.html.twig #}
+{% extends 'AppBundle:Form:review.html.twig' %}
+
+{% block dynamic_path %}
+    {{ path('review_book_send', { '_locale': app.request.locale }) }}
+{% endblock %}
+
+{% block dynamic_fields %}
+    {{ form_widget(form.bookId, {
+        'id':    "review-book-id",
+        'value': bookId
+    }) }}
+{% endblock %}
