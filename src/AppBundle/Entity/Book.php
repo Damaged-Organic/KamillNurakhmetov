@@ -57,7 +57,7 @@ class Book implements Translatable, CurrencyListInterface
     protected $readers;
 
     /**
-     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="book", cascade={"remove"}, orphanRemoval=true)
      */
     protected $bookmarks;
 

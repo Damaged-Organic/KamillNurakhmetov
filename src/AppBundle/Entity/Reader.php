@@ -36,12 +36,12 @@ class Reader implements AdvancedUserInterface, Serializable, CurrencyListInterfa
     protected $reviews;
 
     /**
-     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="reader")
+     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="reader", cascade={"remove"}, orphanRemoval=true)
      */
     protected $bookmarks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="reader")
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="reader", cascade={"remove"}, orphanRemoval=true)
      */
     protected $orders;
 
@@ -211,7 +211,7 @@ class Reader implements AdvancedUserInterface, Serializable, CurrencyListInterfa
     }
 
     /**
-     * @Assert\True(message="reader.password.legal")
+     * @Assert\IsTrue(message="reader.password.legal")
      */
     public function isPasswordLegal()
     {

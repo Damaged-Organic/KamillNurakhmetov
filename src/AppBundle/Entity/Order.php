@@ -20,7 +20,7 @@ class Order
 
     /**
      * @ORM\ManyToOne(targetEntity="Reader", inversedBy="orders")
-     * @ORM\JoinColumn(name="reader_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="reader_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $reader;
 

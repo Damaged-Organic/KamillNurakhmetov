@@ -16,19 +16,19 @@ class Bookmark
 
     /**
      * @ORM\ManyToOne(targetEntity="Reader", inversedBy="bookmarks")
-     * @ORM\JoinColumn(name="reader_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="reader_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $reader;
 
     /**
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="bookmarks")
-     * @ORM\JoinColumn(name="book_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $book;
 
     /**
      * @ORM\ManyToOne(targetEntity="Chapter", inversedBy="bookmarks")
-     * @ORM\JoinColumn(name="chapter_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="chapter_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $chapter;
 
@@ -48,7 +48,7 @@ class Bookmark
     /**
      * Get reader
      *
-     * @return \AppBundle\Entity\Reader 
+     * @return \AppBundle\Entity\Reader
      */
     public function getReader()
     {
@@ -71,7 +71,7 @@ class Bookmark
     /**
      * Get book
      *
-     * @return \AppBundle\Entity\Book 
+     * @return \AppBundle\Entity\Book
      */
     public function getBook()
     {
@@ -94,7 +94,7 @@ class Bookmark
     /**
      * Get chapter
      *
-     * @return \AppBundle\Entity\Chapter 
+     * @return \AppBundle\Entity\Chapter
      */
     public function getChapter()
     {

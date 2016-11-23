@@ -30,12 +30,12 @@ class Chapter implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="chapters")
-     * @ORM\JoinColumn(name="book_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="id", nullable=TRUE, onDelete="SET NULL")
      */
     protected $book;
 
     /**
-     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="chapter"))
+     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="chapter", cascade={"remove"}, orphanRemoval=true)
      */
     protected $bookmarks;
 
@@ -101,7 +101,7 @@ class Chapter implements Translatable
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -124,7 +124,7 @@ class Chapter implements Translatable
     /**
      * Get text
      *
-     * @return string 
+     * @return string
      */
     public function getText()
     {
@@ -147,7 +147,7 @@ class Chapter implements Translatable
     /**
      * Get rawText
      *
-     * @return string 
+     * @return string
      */
     public function getRawText()
     {
@@ -170,7 +170,7 @@ class Chapter implements Translatable
     /**
      * Get textFormatter
      *
-     * @return string 
+     * @return string
      */
     public function getTextFormatter()
     {
@@ -193,7 +193,7 @@ class Chapter implements Translatable
     /**
      * Get book
      *
-     * @return \AppBundle\Entity\Book 
+     * @return \AppBundle\Entity\Book
      */
     public function getBook()
     {
@@ -213,7 +213,7 @@ class Chapter implements Translatable
     /**
      * Get chapterOrder
      *
-     * @return integer 
+     * @return integer
      */
     public function getChapterOrder()
     {
@@ -246,7 +246,7 @@ class Chapter implements Translatable
     /**
      * Get bookmarks
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBookmarks()
     {
