@@ -9,7 +9,7 @@ common:
 
     footer:
         credits: >
-            © Камиль Нурахметов. Создано в © <a href="%developers_agency_link%" target="_blank">%developers_agency_name%</a>, 2016.
+            © Камиль Нурахметов. Web Production by <a href="%developers_agency_link%" target="_blank">%developers_agency_name%</a>, 2016.
             Использование собственных материалов сайта без согласия владельца запрещено.
         feedback: Отправить письмо
 
